@@ -33,7 +33,7 @@ struct program {
   };
 };
 
-program load_program(std::ifstream &file) {
+program load_program(std::istream &file) {
   program p{};
 
   try {
@@ -83,17 +83,11 @@ program load_program(std::ifstream &file) {
   return p;
 }
 
-int32_t main(int32_t argc, char **argv) {
-  if (argc != 2) {
-    std::cout << "Usage: " << argv[0] << " input_program" << std::endl;
-    exit(EXIT_FAILURE);
-  }
-
-  std::ifstream file(argv[1]);
+int32_t main() {
   program p{};
 
   do {
-    p = load_program(file);
+    p = load_program(std::cin);
   } while (static_cast<uint8_t>(!p.lines.empty()) != 0u);
 
   exit(EXIT_SUCCESS);

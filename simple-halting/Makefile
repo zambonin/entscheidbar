@@ -11,4 +11,4 @@ clean:
 
 test: $(addsuffix .test, $(basename $(wildcard tests/*.in)))
 %.test: %.in %.out /usr/bin/cmp all
-	./$(OUTPUT) $< | cmp -s $(word 2, $?) -
+	./$(OUTPUT) < $< | cmp -s $(word 2, $?) -
