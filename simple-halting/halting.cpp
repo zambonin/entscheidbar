@@ -8,20 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-static const uint16_t MAX_INT = 1000;
-
-static const std::string integers("([1-9]?[0-9]{1,2})|1000"),
-    registers("R[0-9]"), operand("(" + integers + "|" + registers + ")"),
-    no_arg_key("ENDIF"), call_key("(CALL|RET)"),
-    valid_arith_key("(MO[DV]|ADD|SUB|MUL|DIV)"),
-    valid_cond_key("(IF(N?EQ|GE?|LE?))"),
-    valid_call_line(call_key + " " + operand),
-    valid_arith_line(valid_arith_key + " " + registers + "," + operand),
-    valid_cond_line(valid_cond_key + " " + operand + "," + operand);
-
-static const std::regex last_line("RET " + operand),
-    valid_lines(no_arg_key + "|" + valid_call_line + "|" + valid_arith_line +
-                "|" + valid_cond_line);
+static const uint16_t constexpr MAX_INT = 1000;
 
 struct program {
   std::vector<std::string> lines;
@@ -33,7 +20,7 @@ struct program {
   };
 };
 
-program load_program(std::istream &file) {
+program load_program(std::istream &file, const std::regex &match) {
   program p{};
 
   try {
@@ -57,7 +44,7 @@ program load_program(std::istream &file) {
 
     std::string line;
     while (current != number_lines && getline(file, line) &&
-           std::regex_match(line, valid_lines)) {
+           std::regex_match(line, match)) {
       p.lines.push_back(line);
       current = p.lines.size();
       if (line == "ENDIF") {
@@ -84,10 +71,20 @@ program load_program(std::istream &file) {
 }
 
 int32_t main() {
-  program p{};
+  const std::string integers("([1-9]?[0-9]{1,2})|1000"), registers("R[0-9]"),
+      operand("(" + integers + "|" + registers + ")"), no_arg_key("ENDIF"),
+      call_key("(CALL|RET)"), valid_arith_key("(MO[DV]|ADD|SUB|MUL|DIV)"),
+      valid_cond_key("(IF(N?EQ|GE?|LE?))"),
+      valid_call_line(call_key + " " + operand),
+      valid_arith_line(valid_arith_key + " " + registers + "," + operand),
+      valid_cond_line(valid_cond_key + " " + operand + "," + operand);
+  const std::regex valid_lines(no_arg_key + "|" + valid_call_line + "|" +
+                                   valid_arith_line + "|" + valid_cond_line,
+                               std::regex_constants::optimize);
 
+  program p{};
   do {
-    p = load_program(std::cin);
+    p = load_program(std::cin, valid_lines);
   } while (static_cast<uint8_t>(!p.lines.empty()) != 0u);
 
   exit(EXIT_SUCCESS);
