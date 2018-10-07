@@ -11,6 +11,7 @@
 static const uint16_t constexpr MAX_INT = 1000;
 
 using state = std::pair<uint32_t, std::unordered_map<std::string, uint16_t>>;
+using instruction = std::tuple<std::string, std::string, uint16_t, uint16_t>;
 
 struct pair_hash {
   std::size_t operator()(const state &p) const {
@@ -95,86 +96,77 @@ uint16_t parse_arg(const program &p, const std::string &s) {
   }
 }
 
+instruction parse_inst(const program &p, const uint32_t n) {
+  std::string s = p.lines[n];
+  std::string::size_type space = s.find(' '), comma = s.find(',');
+
+  if (comma != std::string::npos) {
+    return std::make_tuple(
+        s.substr(0, space), s.substr(space + 1, comma - space - 1),
+        parse_arg(p, s.substr(space + 1, comma - space - 1)),
+        parse_arg(p, s.substr(comma + 1, std::string::npos)));
+  }
+  if (space != std::string::npos) {
+    return std::make_tuple(s.substr(0, space), s.substr(space + 1),
+                           parse_arg(p, s.substr(space + 1)), -1);
+  }
+
+  return std::make_tuple(s, s, -1, -1);
+}
+
 uint16_t evaluate(program &p) {
   uint32_t current = 0;
-  std::stack<uint32_t> calls, inputs;
+  std::stack<std::pair<uint32_t, uint16_t>> stack;
+  std::string command, output;
+  uint16_t arg1, arg2;
+
   while (current != p.lines.size()) {
-    std::stringstream ss(p.lines[current]);
-    std::string instruction, args, arg1, arg2;
-    std::getline(ss, instruction, ' ');
-    std::getline(ss, args, ' ');
-    std::stringstream sss(args);
-    std::getline(sss, arg1, ',');
-    std::getline(sss, arg2, ',');
-    auto inst =
-        std::make_tuple(instruction, parse_arg(p, arg1), parse_arg(p, arg2));
+    std::tie(command, output, arg1, arg2) = parse_inst(p, current);
 
-    if (instruction == "IFEQ") {
-      current = (std::get<1>(inst) == std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "IFNEQ") {
-      current = (std::get<1>(inst) != std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "IFG") {
-      current = (std::get<1>(inst) > std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "IFGE") {
-      current = (std::get<1>(inst) >= std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "IFL") {
-      current = (std::get<1>(inst) < std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "IFLE") {
-      current = (std::get<1>(inst) <= std::get<2>(inst))
-                    ? current
-                    : p.cond_markers[current];
-    } else if (instruction == "MOV") {
-      p.reg_bank[arg1] = std::get<2>(inst);
-    } else if (instruction == "ADD") {
-      p.reg_bank[arg1] = (p.reg_bank[arg1] + std::get<2>(inst)) % MAX_INT;
-    } else if (instruction == "SUB") {
-      p.reg_bank[arg1] = (p.reg_bank[arg1] - std::get<2>(inst)) % MAX_INT;
-      if (p.reg_bank[arg1] == 65535) {
-        p.reg_bank[arg1] = MAX_INT - 1;
+    if (command == "IFEQ") {
+      current = (arg1 == arg2) ? current : p.cond_markers[current];
+    } else if (command == "IFNEQ") {
+      current = (arg1 != arg2) ? current : p.cond_markers[current];
+    } else if (command == "IFG") {
+      current = (arg1 > arg2) ? current : p.cond_markers[current];
+    } else if (command == "IFGE") {
+      current = (arg1 >= arg2) ? current : p.cond_markers[current];
+    } else if (command == "IFL") {
+      current = (arg1 < arg2) ? current : p.cond_markers[current];
+    } else if (command == "IFLE") {
+      current = (arg1 <= arg2) ? current : p.cond_markers[current];
+    } else if (command == "MOV") {
+      p.reg_bank[output] = arg2;
+    } else if (command == "ADD") {
+      p.reg_bank[output] = (p.reg_bank[output] + arg2) % MAX_INT;
+    } else if (command == "SUB") {
+      p.reg_bank[output] = (p.reg_bank[output] - arg2) % MAX_INT;
+      if (p.reg_bank[output] >= MAX_INT) {
+        p.reg_bank[output] = MAX_INT - 1;
       }
-    } else if (instruction == "MUL") {
-      p.reg_bank[arg1] = (p.reg_bank[arg1] * std::get<2>(inst)) % MAX_INT;
-    } else if (instruction == "DIV") {
-      if (std::get<2>(inst) == 0) {
-        p.reg_bank[arg1] = 0;
-      } else {
-        p.reg_bank[arg1] = (p.reg_bank[arg1] / std::get<2>(inst)) % MAX_INT;
-      }
-    } else if (instruction == "MOD") {
-      if (std::get<2>(inst) == 0) {
-        p.reg_bank[arg1] = 0;
-      } else {
-        p.reg_bank[arg1] = (p.reg_bank[arg1] % std::get<2>(inst)) % MAX_INT;
-      }
-    } else if (instruction == "CALL") {
-      calls.push(current);
-      inputs.push(p.reg_bank["R0"]);
-
+    } else if (command == "MUL") {
+      p.reg_bank[output] = (p.reg_bank[output] * arg2) % MAX_INT;
+    } else if (command == "DIV") {
+      p.reg_bank[output] =
+          (arg2 == 0) ? 0 : (p.reg_bank[output] / arg2) % MAX_INT;
+    } else if (command == "MOD") {
+      p.reg_bank[output] =
+          (arg2 == 0) ? 0 : (p.reg_bank[output] % arg2) % MAX_INT;
+    } else if (command == "CALL") {
+      stack.push(std::make_pair(current, p.reg_bank["R0"]));
       current = -1;
-      p.reg_bank["R0"] = std::get<1>(inst);
+      p.reg_bank["R0"] = arg1;
       auto s = std::make_pair(current, p.reg_bank);
       if (p.recursion_states.find(s) == p.recursion_states.end()) {
         p.recursion_states.insert(std::make_pair(s, true));
       } else {
         return MAX_INT;
       }
-    } else if (instruction == "RET") {
-      p.reg_bank["R9"] = std::get<1>(inst);
-      if (static_cast<unsigned int>(!calls.empty()) != 0u) {
-        current = calls.top();
-        calls.pop();
-        p.reg_bank["R0"] = inputs.top();
-        inputs.pop();
+    } else if (command == "RET") {
+      p.reg_bank["R9"] = arg1;
+      if (static_cast<uint8_t>(!stack.empty()) != 0u) {
+        std::tie(current, p.reg_bank["R0"]) = stack.top();
+        stack.pop();
       } else {
         return p.reg_bank["R9"];
       }
