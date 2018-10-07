@@ -12,6 +12,11 @@ static const uint16_t constexpr MAX_INT = 1000;
 
 using state = std::pair<uint32_t, std::unordered_map<std::string, uint16_t>>;
 using instruction = std::tuple<std::string, std::string, uint16_t, uint16_t>;
+using cond_func_map_type =
+    std::unordered_map<std::string, std::function<bool(uint16_t, uint16_t)>>;
+using arith_func_map_type =
+    std::unordered_map<std::string,
+                       std::function<uint16_t(uint16_t, uint16_t)>>;
 
 struct pair_hash {
   std::size_t operator()(const state &p) const {
@@ -114,7 +119,8 @@ instruction parse_inst(const program &p, const uint32_t n) {
   return std::make_tuple(s, s, -1, -1);
 }
 
-uint16_t evaluate(program &p) {
+uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
+                  arith_func_map_type &arith_functions) {
   uint32_t current = 0;
   std::stack<std::pair<uint32_t, uint16_t>> stack;
   std::string command, output;
@@ -123,36 +129,18 @@ uint16_t evaluate(program &p) {
   while (current != p.lines.size()) {
     std::tie(command, output, arg1, arg2) = parse_inst(p, current);
 
-    if (command == "IFEQ") {
-      current = (arg1 == arg2) ? current : p.cond_markers[current];
-    } else if (command == "IFNEQ") {
-      current = (arg1 != arg2) ? current : p.cond_markers[current];
-    } else if (command == "IFG") {
-      current = (arg1 > arg2) ? current : p.cond_markers[current];
-    } else if (command == "IFGE") {
-      current = (arg1 >= arg2) ? current : p.cond_markers[current];
-    } else if (command == "IFL") {
-      current = (arg1 < arg2) ? current : p.cond_markers[current];
-    } else if (command == "IFLE") {
-      current = (arg1 <= arg2) ? current : p.cond_markers[current];
-    } else if (command == "MOV") {
-      p.reg_bank[output] = arg2;
-    } else if (command == "ADD") {
-      p.reg_bank[output] = (p.reg_bank[output] + arg2) % MAX_INT;
-    } else if (command == "SUB") {
-      p.reg_bank[output] = (p.reg_bank[output] - arg2) % MAX_INT;
-      if (p.reg_bank[output] >= MAX_INT) {
-        p.reg_bank[output] = MAX_INT - 1;
-      }
-    } else if (command == "MUL") {
-      p.reg_bank[output] = (p.reg_bank[output] * arg2) % MAX_INT;
-    } else if (command == "DIV") {
-      p.reg_bank[output] =
-          (arg2 == 0) ? 0 : (p.reg_bank[output] / arg2) % MAX_INT;
-    } else if (command == "MOD") {
-      p.reg_bank[output] =
-          (arg2 == 0) ? 0 : (p.reg_bank[output] % arg2) % MAX_INT;
-    } else if (command == "CALL") {
+    try {
+      current = cond_functions[command](arg1, arg2) ? current
+                                                    : p.cond_markers[current];
+    } catch (const std::bad_function_call &e) {
+    }
+
+    try {
+      p.reg_bank[output] = arith_functions[command](arg1, arg2) % MAX_INT;
+    } catch (const std::bad_function_call &e) {
+    }
+
+    if (command == "CALL") {
       stack.push(std::make_pair(current, p.reg_bank["R0"]));
       current = -1;
       p.reg_bank["R0"] = arg1;
@@ -186,14 +174,31 @@ int32_t main() {
       valid_call_line(call_key + " " + operand),
       valid_arith_line(valid_arith_key + " " + registers + "," + operand),
       valid_cond_line(valid_cond_key + " " + operand + "," + operand);
+
   const std::regex valid_lines(no_arg_key + "|" + valid_call_line + "|" +
                                    valid_arith_line + "|" + valid_cond_line,
                                std::regex_constants::optimize);
 
+  cond_func_map_type cond_functions = {
+      {"IFEQ", std::equal_to<>()}, {"IFNEQ", std::not_equal_to<>()},
+      {"IFG", std::greater<>()},   {"IFGE", std::greater_equal<>()},
+      {"IFL", std::less<>()},      {"IFLE", std::less_equal<>()},
+  };
+
+  arith_func_map_type arith_functions = {
+      {"ADD", std::plus<>()},
+      {"SUB",
+       [](auto a, auto b) { return (a - b == -1) ? MAX_INT - 1 : a - b; }},
+      {"MUL", std::multiplies<>()},
+      {"DIV", [](auto a, auto b) { return (b == 0) ? 0 : a / b; }},
+      {"MOD", [](auto a, auto b) { return (b == 0) ? 0 : a % b; }},
+      {"MOV", [](auto /*a*/, auto b) { return b; }},
+  };
+
   program p{};
   do {
     p = load_program(std::cin, valid_lines);
-    uint16_t result = evaluate(p);
+    uint16_t result = evaluate(p, cond_functions, arith_functions);
     if (result == MAX_INT) {
       std::cout << "*" << std::endl;
     } else if (static_cast<uint8_t>(!p.lines.empty()) != 0u) {
