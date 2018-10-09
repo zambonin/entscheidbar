@@ -122,7 +122,8 @@ instruction parse_inst(const program &p, const uint32_t n) {
 uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
                   arith_func_map_type &arith_functions) {
   uint32_t current = 0;
-  std::stack<std::pair<uint32_t, uint16_t>> stack;
+  std::stack<state> stack;
+  std::unordered_map<uint16_t, uint16_t> memoization;
   std::string command, output;
   uint16_t arg1, arg2;
 
@@ -141,19 +142,28 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
     }
 
     if (command == "CALL") {
-      stack.push(std::make_pair(current, p.reg_bank["R0"]));
-      current = -1;
-      p.reg_bank["R0"] = arg1;
-      auto s = std::make_pair(current, p.reg_bank);
-      if (p.recursion_states.find(s) == p.recursion_states.end()) {
-        p.recursion_states.insert(std::make_pair(s, true));
+      if (memoization.find(arg1) != memoization.end()) {
+        p.reg_bank["R9"] = memoization[arg1];
       } else {
-        return MAX_INT;
+        auto copy_bank(p.reg_bank);
+        copy_bank.erase("R9");
+        stack.push(std::make_pair(current, copy_bank));
+
+        current = -1;
+        p.reg_bank["R0"] = arg1;
+
+        auto s = std::make_pair(current, p.reg_bank);
+        if (p.recursion_states.find(s) == p.recursion_states.end()) {
+          p.recursion_states.insert(std::make_pair(s, true));
+        } else {
+          return MAX_INT;
+        }
       }
     } else if (command == "RET") {
-      p.reg_bank["R9"] = arg1;
-      if (static_cast<uint8_t>(!stack.empty()) != 0u) {
-        std::tie(current, p.reg_bank["R0"]) = stack.top();
+      memoization[p.reg_bank["R0"]] = p.reg_bank["R9"] = arg1;
+      if (static_cast<unsigned int>(!stack.empty()) != 0u) {
+        std::tie(current, p.reg_bank) = stack.top();
+        p.reg_bank["R9"] = arg1;
         stack.pop();
       } else {
         return p.reg_bank["R9"];
