@@ -1,33 +1,37 @@
 #include <iostream>
 #include <regex>
 #include <unordered_map>
+#include <unordered_set>
 
 static const uint16_t constexpr MAX_INT = 1000;
+static const uint16_t constexpr pow10[3] = {1, 10, 100};
 
-using state = std::pair<uint32_t, std::array<uint16_t, 10>>;
-using instruction = std::tuple<std::string, std::string, uint16_t, uint16_t>;
+using bank = std::array<uint16_t, 10>;
+using state = std::pair<uint32_t, bank>;
+using instruction =
+    std::tuple<std::string_view, std::string_view, uint16_t, uint16_t>;
 using cond_func_map_type =
-    std::unordered_map<std::string, std::function<bool(uint16_t, uint16_t)>>;
+    std::unordered_map<std::string_view,
+                       std::function<bool(uint16_t, uint16_t)>>;
 using arith_func_map_type =
-    std::unordered_map<std::string,
+    std::unordered_map<std::string_view,
                        std::function<uint16_t(uint16_t, uint16_t)>>;
 
-struct pair_hash {
-  std::size_t operator()(const state &p) const {
+struct bank_hash {
+  std::size_t operator()(const bank &b) const {
     uint32_t summation = 0;
-    for (const auto &reg : p.second) {
+    for (const auto &reg : b) {
       summation += reg;
     }
-
-    return std::hash<uint32_t>{}(p.first) ^ std::hash<uint32_t>{}(summation);
+    return std::hash<uint32_t>{}(summation);
   }
 };
 
 struct program {
   std::vector<std::string> lines;
   std::unordered_map<uint32_t, uint32_t> cond_markers;
-  std::unordered_map<state, bool, pair_hash> recursion_states;
-  std::array<uint16_t, 10> reg_bank = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  bank reg_bank = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  std::unordered_set<bank, bank_hash> recursion_states;
 };
 
 program load_program(std::istream &file, const std::regex &match) {
@@ -42,11 +46,6 @@ program load_program(std::istream &file, const std::regex &match) {
     // end of input with multiple programs
     if (number_lines == 0 && p.reg_bank[0] == 0) {
       return p;
-    }
-
-    // wrong second arg or file not found
-    if (p.reg_bank[0] >= MAX_INT) {
-      exit(EXIT_FAILURE);
     }
 
     // ignore rest of line
@@ -80,19 +79,24 @@ program load_program(std::istream &file, const std::regex &match) {
   return p;
 }
 
-uint16_t parse_arg(const program &p, const std::string &s) {
+uint16_t parse_arg(const program &p, const std::string_view &s) {
   if (s.empty()) {
     return -1;
   }
   if (s[0] == 'R') {
     return p.reg_bank[s[1] - '0'];
   }
-  return std::stoi(s);
+  std::string::size_type len = s.size();
+  uint16_t n = 0, i = len;
+  while ((i--) != 0u) {
+    n += pow10[i] * (s[len - i - 1] - '0');
+  }
+  return n;
 }
 
 instruction parse_inst(const program &p, const uint32_t n) {
-  std::string s = p.lines[n];
-  std::string::size_type space = s.find(' '), comma = s.find(',');
+  const std::string_view s = p.lines[n];
+  const std::string::size_type space = s.find(' '), comma = s.find(',');
 
   if (comma != std::string::npos) {
     return std::make_tuple(
@@ -113,7 +117,7 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
   uint32_t current = 0;
   std::stack<state> stack;
   std::unordered_map<uint16_t, uint16_t> memoization;
-  std::string command, output;
+  std::string_view command, output;
   uint16_t arg1, arg2;
 
   while (current != p.lines.size()) {
@@ -126,15 +130,11 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
       if (memoization.find(arg1) != memoization.end()) {
         p.reg_bank[9] = memoization[arg1];
       } else {
-        auto copy_bank(p.reg_bank);
-        stack.push(std::make_pair(current, copy_bank));
-
+        stack.push(std::make_pair(current, p.reg_bank));
         current = -1;
         p.reg_bank[0] = arg1;
-
-        auto s = std::make_pair(current, p.reg_bank);
-        if (p.recursion_states.find(s) == p.recursion_states.end()) {
-          p.recursion_states.insert(std::make_pair(s, true));
+        if (p.recursion_states.find(p.reg_bank) == p.recursion_states.end()) {
+          p.recursion_states.insert(p.reg_bank);
         } else {
           return MAX_INT;
         }
