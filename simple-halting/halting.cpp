@@ -1,12 +1,6 @@
-#include <algorithm>
-#include <cstdint>
-#include <fstream>
 #include <iostream>
 #include <regex>
-#include <stack>
-#include <string>
 #include <unordered_map>
-#include <vector>
 
 static const uint16_t constexpr MAX_INT = 1000;
 
@@ -94,11 +88,10 @@ uint16_t parse_arg(const program &p, const std::string &s) {
   if (s.empty()) {
     return -1;
   }
-  try {
+  if (s[0] == 'R') {
     return p.reg_bank.at(s);
-  } catch (const std::out_of_range &e) {
-    return std::stoi(s);
   }
+  return std::stoi(s);
 }
 
 instruction parse_inst(const program &p, const uint32_t n) {
@@ -130,18 +123,10 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
   while (current != p.lines.size()) {
     std::tie(command, output, arg1, arg2) = parse_inst(p, current);
 
-    try {
-      current = cond_functions[command](arg1, arg2) ? current
+    if (command[0] == 'I') {
+       current = cond_functions[command](arg1, arg2) ? current
                                                     : p.cond_markers[current];
-    } catch (const std::bad_function_call &e) {
-    }
-
-    try {
-      p.reg_bank[output] = arith_functions[command](arg1, arg2) % MAX_INT;
-    } catch (const std::bad_function_call &e) {
-    }
-
-    if (command == "CALL") {
+    } else if (command == "CALL") {
       if (memoization.find(arg1) != memoization.end()) {
         p.reg_bank["R9"] = memoization[arg1];
       } else {
@@ -168,6 +153,8 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
       } else {
         return p.reg_bank["R9"];
       }
+    } else if (command != "ENDIF") {
+      p.reg_bank[output] = arith_functions[command](arg1, arg2) % MAX_INT;
     }
 
     current++;
