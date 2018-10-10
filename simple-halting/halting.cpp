@@ -4,7 +4,7 @@
 
 static const uint16_t constexpr MAX_INT = 1000;
 
-using state = std::pair<uint32_t, std::unordered_map<std::string, uint16_t>>;
+using state = std::pair<uint32_t, std::array<uint16_t, 10>>;
 using instruction = std::tuple<std::string, std::string, uint16_t, uint16_t>;
 using cond_func_map_type =
     std::unordered_map<std::string, std::function<bool(uint16_t, uint16_t)>>;
@@ -16,7 +16,7 @@ struct pair_hash {
   std::size_t operator()(const state &p) const {
     uint32_t summation = 0;
     for (const auto &reg : p.second) {
-      summation += reg.second;
+      summation += reg;
     }
 
     return std::hash<uint32_t>{}(p.first) ^ std::hash<uint32_t>{}(summation);
@@ -27,11 +27,7 @@ struct program {
   std::vector<std::string> lines;
   std::unordered_map<uint32_t, uint32_t> cond_markers;
   std::unordered_map<state, bool, pair_hash> recursion_states;
-
-  std::unordered_map<std::string, uint16_t> reg_bank = {
-      {"R0", -1}, {"R1", 0}, {"R2", 0}, {"R3", 0}, {"R4", 0},
-      {"R5", 0},  {"R6", 0}, {"R7", 0}, {"R8", 0}, {"R9", 0},
-  };
+  std::array<uint16_t, 10> reg_bank = {1, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
 
 program load_program(std::istream &file, const std::regex &match) {
@@ -41,15 +37,15 @@ program load_program(std::istream &file, const std::regex &match) {
     uint32_t number_lines = 0, current = 0;
     std::stack<uint32_t> cond_matches;
 
-    file >> number_lines >> p.reg_bank["R0"];
+    file >> number_lines >> p.reg_bank[0];
 
     // end of input with multiple programs
-    if (number_lines == 0 && p.reg_bank["R0"] == 0) {
+    if (number_lines == 0 && p.reg_bank[0] == 0) {
       return p;
     }
 
     // wrong second arg or file not found
-    if (p.reg_bank["R0"] >= MAX_INT) {
+    if (p.reg_bank[0] >= MAX_INT) {
       exit(EXIT_FAILURE);
     }
 
@@ -89,7 +85,7 @@ uint16_t parse_arg(const program &p, const std::string &s) {
     return -1;
   }
   if (s[0] == 'R') {
-    return p.reg_bank.at(s);
+    return p.reg_bank[s[1] - '0'];
   }
   return std::stoi(s);
 }
@@ -124,18 +120,17 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
     std::tie(command, output, arg1, arg2) = parse_inst(p, current);
 
     if (command[0] == 'I') {
-       current = cond_functions[command](arg1, arg2) ? current
+      current = cond_functions[command](arg1, arg2) ? current
                                                     : p.cond_markers[current];
     } else if (command == "CALL") {
       if (memoization.find(arg1) != memoization.end()) {
-        p.reg_bank["R9"] = memoization[arg1];
+        p.reg_bank[9] = memoization[arg1];
       } else {
         auto copy_bank(p.reg_bank);
-        copy_bank.erase("R9");
         stack.push(std::make_pair(current, copy_bank));
 
         current = -1;
-        p.reg_bank["R0"] = arg1;
+        p.reg_bank[0] = arg1;
 
         auto s = std::make_pair(current, p.reg_bank);
         if (p.recursion_states.find(s) == p.recursion_states.end()) {
@@ -145,22 +140,23 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
         }
       }
     } else if (command == "RET") {
-      memoization[p.reg_bank["R0"]] = p.reg_bank["R9"] = arg1;
+      memoization[p.reg_bank[0]] = p.reg_bank[9] = arg1;
       if (static_cast<unsigned int>(!stack.empty()) != 0u) {
         std::tie(current, p.reg_bank) = stack.top();
-        p.reg_bank["R9"] = arg1;
+        p.reg_bank[9] = arg1;
         stack.pop();
       } else {
-        return p.reg_bank["R9"];
+        return p.reg_bank[9];
       }
     } else if (command != "ENDIF") {
-      p.reg_bank[output] = arith_functions[command](arg1, arg2) % MAX_INT;
+      p.reg_bank[output[1] - '0'] =
+          arith_functions[command](arg1, arg2) % MAX_INT;
     }
 
     current++;
   }
 
-  return p.reg_bank["R9"];
+  return p.reg_bank[9];
 }
 
 int32_t main() {
