@@ -1,4 +1,4 @@
-CXXFLAGS = -Wall -Wextra -O2 -std=c++17 -I .
+CXXFLAGS = -Wall -Wextra -O2 -std=c++14 -I .
 OUTPUT = $(basename $(wildcard *.cpp))
 
 all: $(OUTPUT)

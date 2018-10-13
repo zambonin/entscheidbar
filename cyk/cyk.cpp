@@ -1,7 +1,6 @@
 #include <iostream>
 #include <regex>
 #include <set>
-#include <string_view>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -87,6 +86,7 @@ bool cyk(const grammar &g, const std::string &w) {
   const std::string::size_type n = w.size();
   std::vector<std::vector<std::set<char>>> table(
       n, std::vector<std::set<char>>(n));
+  std::unordered_map<std::string, std::set<char>> memo;
 
   for (uint32_t i = 0; i < n; ++i) {
     std::set<char> rules = get_rules_for_symbol(g, w[i]);
@@ -99,8 +99,10 @@ bool cyk(const grammar &g, const std::string &w) {
         std::set<std::string> prod =
             cartesian_prod(table[r][r + t], table[r + t + 1][r + l]);
         for (const auto &pair : prod) {
-          std::set<char> rules = get_rules_for_symbols(g, pair);
-          table[r][r + l].insert(rules.begin(), rules.end());
+          if (memo.find(pair) == memo.end()) {
+            memo[pair] = get_rules_for_symbols(g, pair);
+          }
+          table[r][r + l].insert(memo[pair].begin(), memo[pair].end());
         }
       }
     }
@@ -111,9 +113,12 @@ bool cyk(const grammar &g, const std::string &w) {
 
 void cyk_wrapper(const grammar &g, const uint32_t index) {
   std::cout << "Instancia " << index << std::endl;
+  std::unordered_map<std::string, std::string> memo;
   for (const std::string &word : g.possible_inputs) {
-    std::string result = cyk(g, word) ? "" : " nao";
-    std::cout << word << result << " e uma palavra valida" << std::endl;
+    if (memo.find(word) == memo.end()) {
+      memo[word] = cyk(g, word) ? "" : " nao";
+    }
+    std::cout << word << memo[word] << " e uma palavra valida" << std::endl;
   }
   std::cout << std::endl;
 }
