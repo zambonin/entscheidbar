@@ -7,21 +7,19 @@ static const uint16_t constexpr MAX_INT = 1000;
 static const uint16_t constexpr pow10[3] = {1, 10, 100};
 
 using bank = std::array<uint16_t, 10>;
-using state = std::pair<uint32_t, bank>;
 using instruction =
     std::tuple<std::string_view, std::string_view, uint16_t, uint16_t>;
-using cond_func_map_type =
-    std::unordered_map<std::string_view,
-                       std::function<bool(uint16_t, uint16_t)>>;
-using arith_func_map_type =
-    std::unordered_map<std::string_view,
-                       std::function<uint16_t(uint16_t, uint16_t)>>;
+template <typename T>
+using func_map_type =
+    std::unordered_map<std::string_view, std::function<T(uint16_t, uint16_t)>>;
+using cond_func_map_type = func_map_type<bool>;
+using arith_func_map_type = func_map_type<uint16_t>;
 
 struct bank_hash {
   std::size_t operator()(const bank &b) const {
     uint32_t summation = 0;
-    for (const auto &reg : b) {
-      summation += reg;
+    for (const uint16_t reg : b) {
+      summation = summation * 31 + std::hash<uint16_t>{}(reg);
     }
     return std::hash<uint32_t>{}(summation);
   }
@@ -30,7 +28,7 @@ struct bank_hash {
 struct program {
   std::vector<std::string> lines;
   std::unordered_map<uint32_t, uint32_t> cond_markers;
-  bank reg_bank = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  bank reg_bank = {0};
   std::unordered_set<bank, bank_hash> recursion_states;
 };
 
@@ -115,7 +113,7 @@ instruction parse_inst(const program &p, const uint32_t n) {
 uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
                   arith_func_map_type &arith_functions) {
   uint32_t current = 0;
-  std::stack<state> stack;
+  std::stack<std::pair<uint32_t, bank>> stack;
   std::unordered_map<uint16_t, uint16_t> memoization;
   std::string_view command, output;
   uint16_t arg1, arg2;
@@ -141,7 +139,7 @@ uint16_t evaluate(program &p, cond_func_map_type &cond_functions,
       }
     } else if (command == "RET") {
       memoization[p.reg_bank[0]] = p.reg_bank[9] = arg1;
-      if (static_cast<unsigned int>(!stack.empty()) != 0u) {
+      if (static_cast<uint8_t>(!stack.empty()) != 0u) {
         std::tie(current, p.reg_bank) = stack.top();
         p.reg_bank[9] = arg1;
         stack.pop();
