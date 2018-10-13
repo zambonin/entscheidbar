@@ -4,10 +4,19 @@
 #include <unordered_map>
 #include <unordered_set>
 
+using char_pair = std::pair<char, char>;
+using char_set = std::set<char>;
+
+struct pair_hash {
+  std::size_t operator()(const char_pair &p) const {
+    // pretend XOR is not commutative for pairs such as 'AB' and 'BA'
+    return std::hash<char>{}(p.first) ^ (std::hash<char>{}(p.second) << 1);
+  }
+};
+
 struct grammar {
   char start_prod;
-  std::unordered_set<char> productions, terminals;
-  std::unordered_map<char, std::unordered_set<std::string>> rules;
+  std::unordered_map<char, std::unordered_set<char_pair, pair_hash>> rules;
   std::vector<std::string> possible_inputs;
 };
 
@@ -23,10 +32,7 @@ grammar load_grammar(std::istream &in) {
       return g;
     }
 
-    g.productions.insert(prod.begin(), prod.end());
-    g.terminals.insert(term.begin(), term.end());
-
-    if (g.productions.find(g.start_prod) == g.productions.end()) {
+    if (prod.find(g.start_prod) == std::string::npos) {
       exit(EXIT_FAILURE);
     }
 
@@ -39,7 +45,7 @@ grammar load_grammar(std::istream &in) {
     while (getline(in, line) && line != "# -> #" &&
            std::regex_match(line, valid_rules)) {
       g.rules[line[0]].insert(
-          line.substr(line.find('>') + 2, std::string::npos));
+          char_pair(line[5], (line.size() == 6) ? '#' : line[6]));
     }
 
     while (getline(in, line) && line != "#") {
@@ -52,14 +58,11 @@ grammar load_grammar(std::istream &in) {
   return g;
 }
 
-std::set<char> get_rules_for_symbols(const grammar &g,
-                                     const std::string &symb) {
-  std::set<char> result;
+char_set get_rules_for_symbols(const grammar &g, const char_pair &p) {
+  char_set result;
   for (const auto &rule : g.rules) {
-    for (const auto &poss : rule.second) {
-      bool term = symb.size() == 1 && poss[0] == symb[0];
-      bool non_term = symb.size() == 2 && poss == symb;
-      if (term || non_term) {
+    for (const char_pair &poss : rule.second) {
+      if (poss == p) {
         result.insert(rule.first);
       }
     }
@@ -67,16 +70,11 @@ std::set<char> get_rules_for_symbols(const grammar &g,
   return result;
 }
 
-std::set<char> get_rules_for_symbol(const grammar &g, const char &c) {
-  return get_rules_for_symbols(g, std::string({c}));
-}
-
-std::set<std::string> cartesian_prod(const std::set<char> &a,
-                                     const std::set<char> &b) {
-  std::set<std::string> result;
+std::set<char_pair> cartesian_prod(const char_set &a, const char_set &b) {
+  std::set<char_pair> result;
   for (const char &a1 : a) {
     for (const char &b1 : b) {
-      result.insert(std::string({a1, b1}));
+      result.insert(std::make_pair(a1, b1));
     }
   }
   return result;
@@ -84,21 +82,20 @@ std::set<std::string> cartesian_prod(const std::set<char> &a,
 
 bool cyk(const grammar &g, const std::string &w) {
   const std::string::size_type n = w.size();
-  std::vector<std::vector<std::set<char>>> table(
-      n, std::vector<std::set<char>>(n));
-  std::unordered_map<std::string, std::set<char>> memo;
+  std::vector<std::vector<char_set>> table(n, std::vector<char_set>(n));
+  std::unordered_map<char_pair, char_set, pair_hash> memo;
 
   for (uint32_t i = 0; i < n; ++i) {
-    std::set<char> rules = get_rules_for_symbol(g, w[i]);
+    char_set rules = get_rules_for_symbols(g, char_pair(w[i], '#'));
     table[i][i].insert(rules.begin(), rules.end());
   }
 
   for (uint32_t l = 1; l < n; l++) {
     for (uint32_t r = 0; r < n - l; r++) {
       for (uint32_t t = 0; t < l; t++) {
-        std::set<std::string> prod =
+        std::set<char_pair> prod =
             cartesian_prod(table[r][r + t], table[r + t + 1][r + l]);
-        for (const auto &pair : prod) {
+        for (const char_pair &pair : prod) {
           if (memo.find(pair) == memo.end()) {
             memo[pair] = get_rules_for_symbols(g, pair);
           }
