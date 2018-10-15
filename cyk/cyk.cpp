@@ -63,8 +63,15 @@ grammar load_grammar(std::istream &in) {
       return g;
     }
 
-    if (prod.find(g.start_prod) == std::string::npos) {
-      exit(EXIT_FAILURE);
+    // various input file limitations according to original problem
+    bool valid_start_prod = std::isupper(g.start_prod);
+    bool valid_prod = std::all_of(prod.begin(), prod.end(), isupper);
+    bool start_in_prod = prod.find(g.start_prod) != std::string::npos;
+    bool no_space_term = term.find(' ') == std::string::npos;
+    bool no_hashtag_term = term.find('#') == std::string::npos;
+    if (!(valid_start_prod && valid_prod && start_in_prod && no_space_term &&
+          no_hashtag_term)) {
+      throw std::invalid_argument("input is not valid");
     }
 
     // ignore rest of line
@@ -81,7 +88,15 @@ grammar load_grammar(std::istream &in) {
           char_pair(line[5], (line.size() == 6) ? '#' : line[6]));
     }
 
+    constexpr uint8_t max_word_len = 50;
     while (getline(in, line) && line != "#") {
+      // input must not feature letters that symbolize productions
+      bool letter_is_prod = std::any_of(line.begin(), line.end(), [=](char c) {
+        return prod.find(c) != std::string::npos;
+      });
+      if (line.size() > max_word_len || letter_is_prod) {
+        throw std::invalid_argument("word is not valid");
+      }
       g.possible_inputs.emplace_back(line);
     }
   } catch (const std::exception &e) {
