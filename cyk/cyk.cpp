@@ -23,6 +23,31 @@ struct grammar {
   std::vector<std::string> possible_inputs;
 };
 
+// Provides a way to use a grammar as a key in unordered containers.
+struct gram_hash {
+  std::size_t operator()(const grammar &g) const {
+    uint32_t hash = g.start_prod;
+    for (const auto &rule : g.rules) {
+      hash ^= std::hash<char>{}(rule.first);
+      for (const auto &pair : rule.second) {
+        hash ^= rule.second.hash_function()(pair);
+      }
+    }
+    return hash;
+  }
+};
+
+// Two grammars are equal if they have the same rules and same possible inputs.
+// This prevents unnecessary instantation of CYK with two equal inputs.
+struct gram_eq {
+  bool operator()(const grammar &g1, const grammar &g2) const {
+    return g1.rules == g2.rules && g1.possible_inputs == g2.possible_inputs;
+  }
+};
+
+using input_map = std::unordered_map<std::string, bool>;
+using grammar_map = std::unordered_map<grammar, input_map, gram_hash, gram_eq>;
+
 // Creates a structure containing the description of a context-free grammar in
 // Chomsky normal form, and does so through matching possible rules with
 // regular expressions.
@@ -101,6 +126,11 @@ bool cyk(const grammar &g, const std::string &w) {
   // fill table's diagonal with the rules that produce characters in the input
   for (uint32_t i = 0; i < n; ++i) {
     char_set rules = get_rules_for_symbols(g, char_pair(w[i], '#'));
+    // if no rules produce any of the letters in the word, then it cannot be a
+    // member of the language
+    if (rules.empty()) {
+      return false;
+    }
     table[i][i].insert(rules.begin(), rules.end());
   }
 
@@ -129,28 +159,43 @@ bool cyk(const grammar &g, const std::string &w) {
   return table[0][n - 1].find(g.start_prod) != table[0][n - 1].end();
 }
 
-// Prints output according to SPOJ guidelines. Features an example of
-// memoization since repeated words can appear in the input file.
-void cyk_wrapper(const grammar &g, const uint32_t index) {
-  std::cout << "Instancia " << index << std::endl;
-  std::unordered_map<std::string, std::string> memo;
+// Executes CYK for all words in the list of possible inputs. Features an
+// example of memoization since repeated words can appear in the input file.
+input_map cyk_wrapper(const grammar &g) {
+  input_map memo;
   for (const std::string &word : g.possible_inputs) {
     if (memo.find(word) == memo.end()) {
-      memo[word] = cyk(g, word) ? "" : " nao";
+      memo[word] = cyk(g, word);
     }
-    std::cout << word << memo[word] << " e uma palavra valida" << std::endl;
+  }
+  return memo;
+}
+
+// Prints output according to SPOJ guidelines.
+void cyk_printer(const grammar &g, input_map results, const uint32_t index) {
+  std::cout << "Instancia " << index << std::endl;
+  for (const std::string &word : g.possible_inputs) {
+    std::cout << word;
+    if (!results[word]) {
+      std::cout << " nao";
+    }
+    std::cout << " e uma palavra valida" << std::endl;
   }
   std::cout << std::endl;
 }
 
 int32_t main() {
   grammar g{};
+  grammar_map memo;
   uint32_t i = 0;
 
   do {
     g = load_grammar(std::cin);
     if (g.start_prod != 0) {
-      cyk_wrapper(g, ++i);
+      if (memo.find(g) == memo.end()) {
+        memo[g] = cyk_wrapper(g);
+      }
+      cyk_printer(g, memo[g], ++i);
     }
   } while (g.start_prod != 0);
 
