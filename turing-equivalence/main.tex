@@ -38,7 +38,10 @@ Formally, it is defined as a $7$-tuple $M = (Q, \Gamma, \Sigma, \delta, q_{0}, B
 
 With this definition in mind, note that the expressiveness of a Turing machine is very reduced in comparison with \emph{e.g.} high-level general-purpose programming languages. As such, even though a common program can theoretically be represented and processed in a Turing machine, it may not be feasible to do so. This is also the case in other models of computation. Still considering such limitations, Turing-equivalent models may provide new insights into areas of knowledge where a Turing machine is less suitable as an instrument to build theories upon.
 
-In this paper, we present three models of computation and give proof ideas of their Turing equivalence. Namely, we talk about cellular automata (a $n$-dimensional grid of cells that change of state according to their neighbours' states at each discrete point in time), string rewriting systems (a binary relation between strings over a finite alphabet), and non-deterministic Diophantine machines (using Diophantine equations, multivariate polynomial equations such that their roots are generated only by integers, as computing devices).
+In this paper, we present three models of computation and give proof ideas of their Turing equivalence. Namely, we talk about cellular automata (a $n$-dimensional grid of cells that change state according to their neighbours own states at each discrete point in time), string rewriting systems (a binary relation between strings over a finite alphabet), and non-deterministic Diophantine machines (using Diophantine equations, multivariate polynomial equations such that their roots are generated only by integers, as computing devices).
+
+\section{Cellular automata}\label{sec:ca}
+% game of life
 
 \section{String rewriting systems}\label{sec:srs}
 
@@ -51,9 +54,9 @@ In this paper, we present three models of computation and give proof ideas of th
 % small examples (that unary example is pretty cool)
 % example with cellular automata, rule 110
 
-\section{Non-deterministic Diophantine machines}
+\section{Non-deterministic Diophantine machines}\label{sec:nddm}
 
-% \section{Conclusion}\label{sec:conc}
+\section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
 % further, these are interchangeable in the sense that one can be represented in the other
 % other examples feature lambda calculus, most programming languages (if infinite memory), and even some videogames
