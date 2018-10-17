@@ -9,7 +9,8 @@
 
 \sloppy
 
-\title{Computational Models Equivalent to Turing Machines}
+\title{Computational Models Equivalent to Turing Machines
+\footnote{As submitted to the INE410113 class (Theory of Computation).}}
 
 \author{Douglas Martins\inst{1}, Emmanuel Podestá Jr.\inst{1}, Gustavo Zambonin\inst{1}}
 
@@ -25,7 +26,9 @@
 
 \section{Introduction}\label{sec:intro}
  
-Solving problems is paramount to the advance of society, often being useful to accelerate development in any discipline. By defining a finite number of instructions that may produce outputs fully determined by respective inputs, one creates an algorithm. This historic notion, that which of an ``effective method'' for computations, was subsequently formalised independently by Church~\cite{}, with its $\lambda$-calculus, and Turing, through Turing machines~\cite{}, equivalent models of computation that yield a class of functions known as computable functions. Without loss of generality, these can be thought of as some partial functions on natural numbers, that is, $f : \mathbb{N}^{k} \rightarrow \mathbb{N}$, such that any $k$-tuple will give $f(x)$ through an effective method. However, note that this computational process may actually never stop, \emph{i.e.} $f(x)$ is an undefined value. It would be interesting to prove that, for every pair of algorithms --- or ``computer programs'' --- and inputs, if the process will halt its execution. 
+Solving problems is paramount to the advance of society, often being useful to accelerate development in any discipline. By defining a finite number of instructions that may produce outputs fully determined by respective inputs, one creates an algorithm. This historic notion, that which of an ``effective method'' for computations, was subsequently formalised independently by Church~\cite{}, with its $\lambda$-calculus, and Turing, through Turing machines~\cite{}, equivalent models of computation that yield a class of functions known as computable functions. Without loss of generality, these can be thought of as some partial functions on natural numbers, that is, $f : \mathbb{N}^{k} \rightarrow \mathbb{N}$, such that any $k$-tuple will give $f(x)$ through an effective method. 
+
+Note that this computational process may actually never stop, \emph{i.e.} $f(x)$ is an undefined value. It would be interesting to prove that, for every pair of algorithms --- or ``computer programs'' --- and inputs, if the process will halt its execution. 
 % algorithms are used to solve problems, but not all problems can be solved by algorithms
 % to talk about solvable problems is to talk about computable functions, general primitive recursive functions and nothing else like I/O or fluff
 % however, we cannot talk about computable functions without talking about its models of computation, that is, how exactly a set of outputs is computed given a set of inputs, describing memory, units, communications etc
@@ -35,8 +38,6 @@ Solving problems is paramount to the advance of society, often being useful to a
 % henceforth we explore curious and/or incommon models of computation that are turing-complete, and consequently, equivalent (talk about difference between equivalence and completeness)
 % however note that expressiveness of these models may be limited (how difficult they are to program)
 % as such, namely, we will talk about cellular automata, string rewriting systems and Diophantine equations, and how these can be used to construct valid models of computation
-
-\footnote{As submitted to the INE410113 class (Theory of Computation).}
 
 % \emph{Organization.} This paper is organized as follows. 
 
