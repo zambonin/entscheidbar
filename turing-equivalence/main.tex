@@ -9,8 +9,8 @@
 
 \sloppy
 
-\title{Computational Models Equivalent to Turing Machines
-\footnote{As submitted to the INE410113 class (Theory of Computation).}}
+\title{Computational Models Equivalent to Turing Machines\footnote{
+    As submitted to the INE410113 class (Theory of Computation).}}
 
 \author{Douglas Martins\inst{1}, Emmanuel Podestá Jr.\inst{1}, Gustavo Zambonin\inst{1}}
 
@@ -30,7 +30,7 @@ Solving problems is paramount to the advance of society, often being useful to a
 
 Note that this computational process may actually never stop, \emph{i.e.} $f(x)$ may be an undefined value. It would be interesting to determine this behaviour for any combination of algorithms --- or ``computer programs'' --- and inputs. Called the halting problem, this was proved to be impossible to solve through the Turing machine model of computation. It is not a computable function, that is, there is no algorithm that accurately determines whether an arbitrary algorithm will halt. The halting problem is frequently featured when models are proven to be equivalent to Turing machines, and will aid to clarify the reasoning behind these.
 
-Models of computation that can simulate Turing machines are called Turing-complete, or universal, and Turing-equivalent if a Turing machine can simulate that model. These definitions are the same in practice, since all Turing-complete systems known are also Turing-equivalent. 
+Models of computation that can simulate Turing machines are called Turing-complete, or universal, and Turing-equivalent if a Turing machine can simulate that model. These definitions are the same in practice, since all Turing-complete systems known are also Turing-equivalent. By the Church--Turing thesis, this should remain the case for any computable functions.
 
 A Turing machine consists of a finite number of states, and features an infinite one-dimensional tape divided into cells, each of which holds a symbol from a finite tape alphabet. A tape head is always positioned at exactly one of the cells, and can write to that cell, move to its left or right neighbours, or order the machine to change states. The input, consisting of words from a subset of the tape alphabet, is placed on the tape, each symbol in its own cell, and all others initialised to blank, a special symbol from the tape alphabet, and the tape head rests on the leftmost filled cell.
 
