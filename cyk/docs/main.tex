@@ -25,11 +25,11 @@
 \maketitle
 
 \section{Introduction}\label{sec:intro}
-A formal language can be used as an important instrument to represent syntactic characteristics of logical and mathematical constructs, thus allowing problems from these areas to be expressed differently and solved through an algorithm. For instance, given a piece of code, we wish to know if it is correctly written, according to the rules of its underlying programming language. An algorithm that solves this problem  is called a parser, and may use a formalism known as a grammar to represent the source code.
+A formal language can be used as an important instrument to represent syntactic characteristics of logical and mathematical constructs, thus allowing problems from these areas to be expressed differently and solved through an algorithm. For instance, given a piece of code, we wish to know if it is correctly written, according to the rules of its underlying programming language. An algorithm that solves this problem may use a formalism known as a grammar to represent the source code.
 
-A grammar generates every word in a language by means of production rules, that is, a set of transformations. Grammars can be classified, according to the Chomsky hierarchy~\cite{}, in four types: regular, context-free, context-sensitive and unrestricted. This classification is directly related to the classes of problems that languages are able to solve, \emph{i.e.} unrestricted grammars can solve the most complex problems that are still computable. Furthermore, note that every problem with a Boolean answer can be expressed as a membership problem in a language (the set of words that represent positive solutions).
+A grammar generates every word in a language by means of production rules, that is, a set of transformations. Grammars can be classified, according to the Chomsky hierarchy~\cite{}, in four types: regular, context-free, context-sensitive and unrestricted. This classification is directly related to the classes of problems that languages are able to solve, \emph{i.e.} unrestricted grammars can solve the most complex problems that are still computable. Furthermore, note that every problem with a Boolean answer can be expressed as a membership problem in a language (the set of words that represent positive solutions). Algorithms that solve these problems in the context of grammars are called parsers.
 
-As discussed above, syntax of programming languages is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of balanced parenthesis. However, the act of parsing such patterns in accordance to a grammar may be computationally complex. Additionally, every context-free grammar can be represented in the Chomsky normal form, that allows easier parsing of strings.
+As discussed above, syntax of programming languages is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of balanced parenthesis. Even though this description is concise, the act of parsing strings in accordance to a grammar may be computationally complex. Hence, we make use of strategies such as the conversion of context-free grammars into an equivalent grammar in Chomsky normal form, that allows easier parsing of strings.
 
 % Composed by a set of strings of symbols, a formal language can be used as a important instrument to solve problems (which problems?). 
 
@@ -38,7 +38,7 @@ As discussed above, syntax of programming languages is usually described in the 
 
 % One application of formal languages is the description of programming languages. We can use a context-free grammar to describe their syntactic rules, \emph{e.g.} a compiler gets as input a source code and uses its grammar to check if the lines of code are syntactically correct, in other words, if the source code is a "member of the language". 
 
-The process of analyzing a word and checking its membership in a language, considering the rules of a grammar, is called parsing. There exists different types of parsers, according to the different types of languages. For the context-free languages, where the grammar are in Chomsky normal formal, we can use the Cocke–Younger–Kasami (CYK) algorithm. 
+% The process of analyzing a word and checking its membership in a language, considering the rules of a grammar, is called parsing. There exists different types of parsers, according to the different types of languages. For the context-free languages, where the grammar are in Chomsky normal formal, we can use the Cocke–Younger–Kasami (CYK) algorithm. 
 
 
 
