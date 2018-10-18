@@ -10,6 +10,10 @@
 
 \sloppy
 
+\renewcommand{\algorithmiccomment}[1]{\hfill $\triangleright$ #1}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
 \title{Membership in context free languages with CYK\footnote{
     As submitted to the INE410113 class (Theory of Computation). \href{https://github.com/zambonin/ine410113}{Source code}.}}
 
@@ -31,18 +35,18 @@ A formal language can be used as an important instrument to represent syntactic 
 
 A grammar generates every word in a language by means of production rules, that is, a set of transformations. Grammars can be classified, according to the Chomsky hierarchy~\cite{}, in four types: regular, context-free, context-sensitive and unrestricted. This classification is directly related to the classes of problems that languages are able to solve, \emph{i.e.} unrestricted grammars can solve the most complex problems that are still computable. Furthermore, note that every problem with a Boolean answer can be expressed as a membership problem in a language (the set of words that represent positive solutions). Algorithms that solve these problems in the context of grammars are called parsers.
 
-As discussed above, syntax of programming languages is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of balanced parenthesis. Even though this description is concise, the act of parsing strings may be computationally complex. Hence, we make use of strategies such as the conversion of context-free grammars into an equivalent grammar in Chomsky normal form, that allows easier parsing of strings through an even simpler description of the grammar.
+As discussed above, syntax of programming languages is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of balanced parenthesis. Even though this description is concise, the act of parsing strings may be computationally complex. Hence, we make use of strategies such as the conversion of context-free grammars into an equivalent grammar in Chomsky normal form (CNF), that allows easier parsing of strings through an even simpler description of the grammar.
 
-This is exactly the situation presented in~\cite{}. Context-free grammars in Chomsky normal form are given, and a parser must be written to solve the problem. We choose the Cocke–Younger–Kasami algorithm, present it in Section~\ref{sec:cyk} and discuss the solution programmed in Section~\ref{sec:imp}.
+This is exactly the situation presented in~\cite{}. Context-free grammars in Chomsky normal form are given, and a parser must be written to solve the problem. We choose the Cocke–Younger–Kasami (CYK) algorithm, present it in Section~\ref{sec:cyk} and discuss the solution programmed in Section~\ref{sec:imp}.
 
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
 
 
 \begin{algorithm}
   \begin{algorithmic}
-    \REQUIRE{}  $h \in \{0, \dots, 2^{H} - 1\}, \enspace \mathbf{S}$
-      \COMMENT{índice de folha, pilha de nodos}
-    \ENSURE{}  $\mathbf{S}$ \COMMENT{pilha atualizada}
+    \REQUIRE{} $w \in \Sigma^{*}, G$
+      \COMMENT{word, grammar in CNF}
+    \ENSURE{}  $v \in {T, F}$ \COMMENT{boolean va}
     \STATE{}  $\textsc{Leaf} \leftarrow \textsc{Leafcalc}(i)$
     \WHILE{$\textsc{Leaf}.height() = \mathbf{S}.top().height()$}
       \STATE{}  $\textsc{Top} \leftarrow \mathbf{S}.pop()$
@@ -51,7 +55,7 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
     \ENDWHILE{}
     \STATE{}  $\mathbf{S}.push(\textsc{Leaf})$
   \end{algorithmic}
-  \caption{Funcionamento de $\textsc{Treehash}_{h}$.}\label{alg:treehash}
+  \caption{Cocke–Younger–Kasami algorithm.}\label{alg:cyk}
 \end{algorithm}
 
 \section{Implementation}\label{sec:imp}
