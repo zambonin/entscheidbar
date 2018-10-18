@@ -55,13 +55,18 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
     \FOR{$i \leftarrow 0, \dots, n - 1$}
       \FOR{$A \in G.V$}
         \IF{$A \rightarrow w[i]$}
-          \STATE{} $d_{i}^{i} \leftarrow A$
+          \STATE{} $d_{i}^{i} \leftarrow d_{i}^{i} \cup \{A\}$
         \ENDIF{}
       \ENDFOR{}
     \ENDFOR{}
     \FOR{$\ell \leftarrow 1, \dots, n - 1$}
       \FOR{$r \leftarrow 0, \dots, n - \ell - 1$}
         \FOR{$t \leftarrow 0, \dots, \ell - 1$}
+          \FOR{$(B, C) \in (d_{r}^{r + t} \times d_{r + t + 1}^{r + \ell})$}
+            \IF{$A \rightarrow BC$}
+              \STATE{} $d_{r}^{r + \ell} \leftarrow d_{r}^{r + \ell} \cup \{A\}$
+            \ENDIF{}
+          \ENDFOR{}
         \ENDFOR{}
       \ENDFOR{}
     \ENDFOR{}
