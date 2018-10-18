@@ -46,8 +46,10 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
   \begin{algorithmic}
     \REQUIRE{} $w \in \Sigma^{*}, G$
       \COMMENT{word, grammar in CNF}
-    \ENSURE{}  $v \in {T, F}$ \COMMENT{boolean va}
-    \STATE{}  $\textsc{Leaf} \leftarrow \textsc{Leafcalc}(i)$
+    \ENSURE{} $v \in \{\mathbf{T}, \mathbf{F}\}$
+      \COMMENT{Boolean value that represents whether $w \in G$}
+    \STATE{} $n \leftarrow |w|$
+    \STATE{} $M \leftarrow (()_{0}, \dots, ()_{n - 1})$
     \WHILE{$\textsc{Leaf}.height() = \mathbf{S}.top().height()$}
       \STATE{}  $\textsc{Top} \leftarrow \mathbf{S}.pop()$
       \STATE{}  $\textsc{Leaf} \leftarrow
