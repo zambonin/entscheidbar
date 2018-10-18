@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[colorlinks]{hyperref}
-\usepackage{amssymb}
+\usepackage{amssymb, algorithm, algorithmic}
 
 \sloppy
 
@@ -33,9 +33,26 @@ A grammar generates every word in a language by means of production rules, that 
 
 As discussed above, syntax of programming languages is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of balanced parenthesis. Even though this description is concise, the act of parsing strings may be computationally complex. Hence, we make use of strategies such as the conversion of context-free grammars into an equivalent grammar in Chomsky normal form, that allows easier parsing of strings through an even simpler description of the grammar.
 
-This is exactly the situation presented in~\cite{}. Context-free grammars in Chomsky normal form are given, and a parser must be written to solve the problem. We choose the Cocke–Younger–Kasami algorithm, present it in Section~\ref{} and discuss the solution programmed in Section~\ref{}.
+This is exactly the situation presented in~\cite{}. Context-free grammars in Chomsky normal form are given, and a parser must be written to solve the problem. We choose the Cocke–Younger–Kasami algorithm, present it in Section~\ref{sec:cyk} and discuss the solution programmed in Section~\ref{sec:imp}.
 
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
+
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \REQUIRE{}  $h \in \{0, \dots, 2^{H} - 1\}, \enspace \mathbf{S}$
+      \COMMENT{índice de folha, pilha de nodos}
+    \ENSURE{}  $\mathbf{S}$ \COMMENT{pilha atualizada}
+    \STATE{}  $\textsc{Leaf} \leftarrow \textsc{Leafcalc}(i)$
+    \WHILE{$\textsc{Leaf}.height() = \mathbf{S}.top().height()$}
+      \STATE{}  $\textsc{Top} \leftarrow \mathbf{S}.pop()$
+      \STATE{}  $\textsc{Leaf} \leftarrow
+        \hash{\textsc{Top} \concat \textsc{Leaf}}$
+    \ENDWHILE{}
+    \STATE{}  $\mathbf{S}.push(\textsc{Leaf})$
+  \end{algorithmic}
+  \caption{Funcionamento de $\textsc{Treehash}_{h}$.}\label{alg:treehash}
+\end{algorithm}
 
 \section{Implementation}\label{sec:imp}
 
@@ -43,3 +60,4 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
 \bibliography{sbc-template}
 
 \end{document}
+
