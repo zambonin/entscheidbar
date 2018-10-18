@@ -49,13 +49,11 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
     \ENSURE{} $v \in \{\mathbf{T}, \mathbf{F}\}$
       \COMMENT{Boolean value that represents whether $w \in G$}
     \STATE{} $n \leftarrow |w|$
-    \STATE{} $M \leftarrow (()_{0}, \dots, ()_{n - 1})$
-    \WHILE{$\textsc{Leaf}.height() = \mathbf{S}.top().height()$}
-      \STATE{}  $\textsc{Top} \leftarrow \mathbf{S}.pop()$
-      \STATE{}  $\textsc{Leaf} \leftarrow
-        \hash{\textsc{Top} \concat \textsc{Leaf}}$
-    \ENDWHILE{}
-    \STATE{}  $\mathbf{S}.push(\textsc{Leaf})$
+      \COMMENT{size of $w$}
+    \STATE{} $M \leftarrow [\{\}_{0}^{0}, \dots, \{\}_{n - 1}^{0}, \dots, \{\}_{0}^{n - 1}, \dots, \{\}_{n - 1}^{n - 1}]$
+      \COMMENT{square $n \times n$ matrix of empty sets}
+    
+    \STATE{} $v \leftarrow (S \in$
   \end{algorithmic}
   \caption{Cocke–Younger–Kasami algorithm.}\label{alg:cyk}
 \end{algorithm}
