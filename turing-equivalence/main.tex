@@ -6,6 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{amssymb}
+\usepackage{graphicx,url}
 
 \sloppy
 
@@ -42,13 +43,13 @@ In this paper, we present three models of computation and give proof ideas of th
 
 \section{Cellular automata}\label{sec:ca}
 
-In this section we show two Turing-complete cellular automatas. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a cell grid (\texttt{1D}, \texttt{2D} e \texttt{3D}) and each cell can be: $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterize the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
+In this section we show two Turing-complete cellular automatas. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a cell grid (\texttt{1D}, \texttt{2D} e \texttt{3D}) and each cell can be: $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
 
 %Nesta seção apresentaremos dois autômatos celulares que são Turing completos. Mais precisamente, um autômato celular é um modelo discreto muito estudado em várias áreas. O modelo consiste de uma matriz de células (\texttt{1D}, \texttt{2D} e \texttt{3D}), onde cada célula da matriz apresenta apenas dois valores: $0$ ou $1$. Para cada célula, temos um conjunto de vizinhos que são definidos pelas suas células adjacentes. A configuração inicial do autômato é criada atribuindo valores para cada célula da matriz. Em cada configuração posterior (geração), o valor de cada célula da matriz é atualizado seguindo um conjunto de regras, caracterizando uma modificação no estado da célula.
 
 \subsection{\textit{Game of Life}}
 
-In 1970, mathematician John Horton Conway created the Game of Life. The game is a cellular automata in a bidimensional grid, and each cell show one of two possible states: alive($1$) or dead($0$). Moreover, each cell follow a specific set of rules to change between states. Therefore, for an initial configuration (seed), cells change their state without the necessity of user input.
+In 1970, mathematician John Horton Conway created the Game of Life. The game is a cellular automata in a bi-dimensional grid, and each cell show one of two possible states: alive($1$) or dead($0$). Moreover, each cell follow a specific set of rules to change between states. Therefore, for an initial configuration (seed), cells change their state without the necessity of user input.
 
 %Em 1970, o matemático John Horton Conway inventou o jogo \textit{Game of life}. Mais precisamente, o jogo é um autômato celular em uma matriz bidimensional, onde células apresentam dois estados: vivo ($1$) e morto ($0$). Cada célula segue um conjunto de regras para mudar de estado, de acordo com os vizinhos. Desta forma, dado uma configuração inicial, denominada de \textit{seed}, as células mudam de estado sem a necessidade de outras entradas pelo usuário.
 
@@ -111,15 +112,15 @@ Rendall~\cite{rendall} showed how to build a Turing machine with Game of Life pa
     \label{fig:gol_mt_highlevel}
 \end{figure}
 
-The tape is portraied with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterize a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
+The tape is portrayed with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterise a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
 
 %A fita de uma Máquina de Turing é representada por duas pilhas. Em cada ciclo, as pilhas realizam uma operação de \textit{push} ou \textit{pop} simultaneamente. Mais precisamente, ao realizar essas operações é possível percorrer a fita. Por exemplo, se a pilha da direita realizar a operação \textit{pop}, o elemento retirado será redirecionado para a máquina de estados finita. A máquina irá computar e gerar um \textit{output}. Desta forma, a pilha da esquerda efetuará a operação \textit{push} do \textit{output} do autômato, caracterizando uma leitura da fita à direita. Por sua vez, a leitura à esquerda é realizada de forma similar. Por fim, todo o controle dos sinais e da pilha é feito pelo componente \textit{Stack Control}.
 
-The Signal Detector component collects and distributes output information from the finite state machine to necessary places. The component splits the next state information from the output, and sends to the machine. This information is used by the finite state machine in the next read/write cycle. The information about the next state and the symbol arrival must be sinchronized. Information about the symbol value is collected by the pop operation.
+The Signal Detector component collects and distributes output information from the finite state machine to necessary places. The component splits the next state information from the output, and sends to the machine. This information is used by the finite state machine in the next read/write cycle. The information about the next state and the symbol arrival must be synchronised. Information about the symbol value is collected by the pop operation.
 
 %O componente \textit{Signal Detector} coleta e distribui a informação de \textit{output} da máquina de estados finita para os locais necessários. O componente separa a informação sobre o próximo estado do \textit{output},  e envia para a máquina. Essa informação é utilizada pela máquina de estados finita no próximo ciclo de leitura/escrita em sincronia com o símbolo que é coletado pela operação de \textit{pop}.
 
-The Turing machine was built with logic gates manually. All memory, stacks, signal and other elements were implemented explicitly with the game. Moreover, word input and initial tape is made, also, explicitily with binary signals ($0$ or $1$). Figure~\ref{fig:gol_mt} shows the Turing machine built with the cellular automata explicitly.
+The Turing machine was built with logic gates manually. All memory, stacks, signal and other elements were implemented explicitly with the game. Moreover, word input and initial tape is made, also, explicitly with binary signals ($0$ or $1$). Figure~\ref{fig:gol_mt} shows the Turing machine built with the cellular automata explicitly.
 
 %A Máquina de Turing foi construída com portas lógicas de forma manual. Todas as memórias, pilhas, sinais, entre outros elementos utilizados foram desenvolvidos de forma explícita com o jogo. Desta forma, a entrada de uma palavra e fita inicial é realizada, também, de forma manual com sinais binários ($0$ ou $1$). A Figura~\ref{fig:gol_mt} ilustra a Máquina de Turing construída com o autômato celular de forma explícita.
 
@@ -130,7 +131,7 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
     \label{fig:gol_mt}
 \end{figure}
 
-Therefore, we can simulate a Turing machine with Game of Life, characterizing the Turing completeness of the game.
+Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
 %Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
