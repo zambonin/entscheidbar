@@ -41,7 +41,6 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
 
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
 
-
 \begin{algorithm}
   \begin{algorithmic}
     \REQUIRE{} $w \in \Sigma^{*}, G$
@@ -56,6 +55,7 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
       \FOR{$A \in G.V$}
         \IF{$(A \rightarrow w[i]) \in G.R$}
           \STATE{} $d_{i}^{i} \leftarrow d_{i}^{i} \cup \{A\}$
+            \COMMENT{if rule produces the $i$-th letter of $w$}
         \ENDIF{}
       \ENDFOR{}
     \ENDFOR{}
