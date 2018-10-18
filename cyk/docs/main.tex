@@ -27,9 +27,9 @@
 \section{Introduction}\label{sec:intro}
 A formal language can be used as an important instrument to represent syntactic characteristics of logical and mathematical constructs, thus allowing problems from these areas to be expressed differently and solved through an algorithm. For instance, given a piece of code, we wish to know if it is correctly written, according to the rules of its underlying programming language. An algorithm that solves this problem may use a formalism known as a grammar to represent the source code.
 
-A grammar generates every word in a language by means of production rules, that is, a set of transformations. Grammars can be classified, according to the Chomsky hierarchy~\cite{}, in four types: regular, context-free, context-sensitive and unrestricted. This classification is directly related to the classes of problems that languages are able to solve, \emph{i.e.} unrestricted grammars can solve the most complex problems that are still computable, and regular grammars can only solve a subset of these.
+A grammar generates every word in a language by means of production rules, that is, a set of transformations. Grammars can be classified, according to the Chomsky hierarchy~\cite{}, in four types: regular, context-free, context-sensitive and unrestricted. This classification is directly related to the classes of problems that languages are able to solve, \emph{i.e.} unrestricted grammars can solve the most complex problems that are still computable, and regular grammars can only solve a subset of these. Furthermore, note that every problem with a Boolean answer can be expressed as a membership problem in a language (the set of words that represent positive solutions).
 
-In special, syntax of programming languages, as discussed above, is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code structures, such as parenthesis balancing.
+In special, syntax of programming languages, as discussed above, is usually described in the form of a context-free grammar. This happens because regular languages cannot deal with common source code idioms, such as the presence of unbalanced parenthesis.
 
 % Composed by a set of strings of symbols, a formal language can be used as a important instrument to solve problems (which problems?). 
 
