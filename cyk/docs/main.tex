@@ -69,12 +69,14 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
           \FOR{$(B, C) \in \mathcal{L} \times \mathcal{R}$}
             \IF{$(A \rightarrow BC) \in G.R$}
               \STATE{} $d_{r}^{r + \ell} \leftarrow d_{r}^{r + \ell} \cup \{A\}$
+                \COMMENT{if rule produces the pair, in that order}
             \ENDIF{}
           \ENDFOR{}
         \ENDFOR{}
       \ENDFOR{}
     \ENDFOR{}
     \STATE{} $v \leftarrow (S \in d_{0}^{n - 1})$
+      \COMMENT{if the starting rule is in the top matrix cell}
   \end{algorithmic}
   \caption{Cocke–Younger–Kasami algorithm.}\label{alg:cyk}
 \end{algorithm}
