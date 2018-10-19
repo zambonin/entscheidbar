@@ -81,8 +81,7 @@ The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{}
   \caption{CYK algorithm}\label{alg:cyk}
 \end{algorithm}
 
-The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. This happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Further, it was proved by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, know to .
-
+The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. This happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Further, it was proved by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
 
 \section{Implementation}\label{sec:imp}
 
