@@ -41,7 +41,9 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in CNF
 
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
 
-The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{} and Kasami~\cite{}. It is a bottom-up parser that uses dynamic programming to decide whether a word is member of a context-free language, represented in CNF. presented in Algorithm~\ref{alg:cyk}
+The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{} and Kasami~\cite{}. It is a bottom-up parser that uses dynamic programming to decide whether a word is member of a context-free language, represented as a grammar in CNF. We present a description in Algorithm~\ref{alg:cyk} and discuss it below.
+
+Consider a grammar as a $4$-tuple $G = (V, \Sigma, R, S)$, where $V$ is a finite set of variables, $\Sigma$ is a finite set of terminals such that $V \cap \Sigma = \varnothing$
 
 \begin{algorithm}
   \begin{algorithmic}[1]
