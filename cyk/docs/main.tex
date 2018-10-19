@@ -42,7 +42,7 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
 
 \begin{algorithm}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
     \REQUIRE{} $w \in \Sigma^{*}, G$
       \COMMENT{word, grammar in CNF}
     \ENSURE{} $v \in \{\mathbf{T}, \mathbf{F}\}$
@@ -63,9 +63,9 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
       \FOR{$r \leftarrow 0, \dots, n - \ell - 1$} 
         \FOR{$t \leftarrow 0, \dots, \ell - 1$}
           \STATE{} $\mathcal{L} \leftarrow d_{r}^{r + t}$
-            \COMMENT{all leftmost substrings of size $r$ to $r + t$}
+            \COMMENT{all prefixes of size $r$ to $r + t$}
           \STATE{} $\mathcal{R} \leftarrow d_{r + t + 1}^{r + \ell}$
-            \COMMENT{all rightmost substrings of size $r + t + 1$ to $r + \ell$}
+            \COMMENT{all suffixes of size $r + t + 1$ to $r + \ell$}
           \FOR{$(B, C) \in \mathcal{L} \times \mathcal{R}$}
             \IF{$(A \rightarrow BC) \in G.R$}
               \STATE{} $d_{r}^{r + \ell} \leftarrow d_{r}^{r + \ell} \cup \{A\}$
