@@ -62,7 +62,11 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in Cho
     \FOR{$\ell \leftarrow 1, \dots, n - 1$}
       \FOR{$r \leftarrow 0, \dots, n - \ell - 1$} 
         \FOR{$t \leftarrow 0, \dots, \ell - 1$}
-          \FOR{$(B, C) \in d_{r}^{r + t} \times d_{r + t + 1}^{r + \ell}$}
+          \STATE{} $\mathcal{L} \leftarrow d_{r}^{r + t}$
+            \COMMENT{all leftmost substrings of size $r$ to $r + t$}
+          \STATE{} $\mathcal{R} \leftarrow d_{r + t + 1}^{r + \ell}$
+            \COMMENT{all rightmost substrings of size $r + t + 1$ to $r + \ell$}
+          \FOR{$(B, C) \in \mathcal{L} \times \mathcal{R}$}
             \IF{$(A \rightarrow BC) \in G.R$}
               \STATE{} $d_{r}^{r + \ell} \leftarrow d_{r}^{r + \ell} \cup \{A\}$
             \ENDIF{}
