@@ -43,7 +43,7 @@ This is exactly the situation presented in~\cite{}. Context-free grammars in CNF
 
 The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{} and Kasami~\cite{}. It is a bottom-up parser that uses dynamic programming to decide whether a word is member of a context-free language. Consider a grammar as a $4$-tuple $G = (V, \Sigma, R, S)$, where $V$ is a finite set of variables, $\Sigma$ is a finite set of terminals such that $V \cap \Sigma = \emptyset$, $S \in V$ is the start variable, and $\forall A, B, C \in V, \forall \alpha \in \Sigma$, $R$ is a finite set of rules with the forms $A \rightarrow \alpha$ or $A \rightarrow BC$. This definition of a CNF grammar is due to Sipser~\cite{}, and note that converting any context-free grammar to its equivalent CNF normal form is possible~\cite{}. We present a description of CYK in Algorithm~\ref{alg:cyk} and discuss it below.
 
-\begin{algorithm}
+\begin{algorithm}[ht]
   \begin{algorithmic}[1]
     \REQUIRE{} $w \in \Sigma^{*}, G$
       \COMMENT{word, grammar in CNF}
@@ -81,7 +81,8 @@ The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{}
   \caption{CYK algorithm}\label{alg:cyk}
 \end{algorithm}
 
-The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, where $s$ is the number of variables and terminals for every $r \in R$. This can be reduced 
+The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, where $s$ is the quantity of variables and terminals for every $r \in R$. This can be reduced 
+
 
 \section{Implementation}\label{sec:imp}
 
