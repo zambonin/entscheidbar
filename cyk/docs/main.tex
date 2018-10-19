@@ -53,15 +53,13 @@ Consider a grammar as a $4$-tuple $G = (V, \Sigma, R, S)$, where $V$ is a finite
       \COMMENT{Boolean value that represents whether $w \in G$}
     \STATE{} $n \leftarrow |w|$
       \COMMENT{size of $w$}
-    \STATE{} $d \leftarrow [\{\}_{0}^{0}, \dots, \{\}_{n - 1}^{n - 1}]$
+    \STATE{} $d \leftarrow [\{\}_{0}^{0}, \dots, \{\}_{n - 1}^{0}, \{\}_{0}^{1}, \dots, \{\}_{n - 1}^{n - 1}]$
       \COMMENT{square $n \times n$ matrix of empty sets}
     \FOR{$i \leftarrow 0, \dots, n - 1$}
-      \FOR{$A \in G.V$}
-        \IF{$(A \rightarrow w[i]) \in G.R$}
-          \STATE{} $d_{i}^{i} \leftarrow d_{i}^{i} \cup \{A\}$
-            \COMMENT{if rule produces the $i$-th letter of $w$}
-        \ENDIF{}
-      \ENDFOR{}
+      \IF{$(A \rightarrow w[i]) \in G.R$}
+        \STATE{} $d_{i}^{i} \leftarrow d_{i}^{i} \cup \{A\}$
+          \COMMENT{if rule produces the $i$-th letter of $w$}
+      \ENDIF{}
     \ENDFOR{}
     \FOR{$\ell \leftarrow 1, \dots, n - 1$}
       \FOR{$r \leftarrow 0, \dots, n - \ell - 1$} 
