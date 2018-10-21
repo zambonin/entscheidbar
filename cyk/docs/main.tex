@@ -124,9 +124,9 @@ The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and
 
 \section{Implementation}\label{sec:imp}
 
-The full source code for the parser can be read in Appendix~\ref{app:impl}. We briefly discuss it in the sequence. Heavy usage of unordered containers is applied, since there is no time access overhead, that is, these feature $\mathcal{O}(1)$ element lookups. Further, we create customized hashing functions to allow insertion of complex objects into these structures. We parse the input with regular expression rules created from the variables and terminals sets. After, there are two helper functions that return, respectively, all rules that generate a pair of symbols, and the cartesian product of two character sets. Note that we pair any terminals with a special character $#$ --- this way, only one function needs to be created. 
+The full source code for the parser can be read in Appendix~\ref{app:impl}. We briefly discuss it in the sequence. Heavy usage of unordered containers is applied, since there is no time access overhead, that is, these feature $\mathcal{O}(1)$ element look-ups. Further, we create customized hashing functions to allow insertion of complex objects into these structures. We parse the input with regular expression rules created from the variables and terminals sets. After, there are two helper functions that return, respectively, all rules that generate a pair of symbols, and the Cartesian product of two character sets. Note that we pair any terminals with a special character $#$ --- this way, only one function needs to be created. 
 
-Starting from Line 115, the main function is defined. It is very similar to Algorithm~\ref{alg:cyk}, almost a source code translation, featuring only two optimizations:
+Starting from Line 115, the main function is defined. It is very similar to Algorithm~\ref{alg:cyk}, almost a source code translation, featuring only two optimizations: early return if any letter of $w$ is not produced by $G$, and memoization of rules produced by a pair of characters. With these, we need not populate the matrix if its diagonal feature an empty set, and a val
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
