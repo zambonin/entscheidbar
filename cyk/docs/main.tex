@@ -85,6 +85,15 @@ The main notion of CYK is the fact that every word in the language can be subdiv
 
 Consider Algorithm~\ref{alg:cyk}, that receives as input a word $w$ and a grammar $G$. We refer to its rules by $G.R$. We create an upper triangular $n \times n$ matrix $d$, where $n$ is the length of $w$, and by Lines 3--7, its diagonal is filled with all rules that produce each letter in $w$. Then, by Lines 8--20, for every substring length $\ell$ that is not trivial, create all possible prefix-suffix pairs by modifying their starting indices $r, t$. Compute the Cartesian product of the rules that generate these substrings, and check if there is a rule that generates one of the pairs. If so, add this rule to the whole substring set in the corresponding cell.
 
+\emph{~\cite[Example 7.34.]{}} Consider the CNF grammar $G$ below, and $w = baaba$.
+
+\begin{align*}
+    S \rightarrow AB \mid BC
+    A \rightarrow BA \mid a
+    B \rightarrow CC \mid b
+    C \rightarrow AB \mid a
+\end{align*}
+
 The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. Intuitively, this is the case since there are $n^{2}$ cells in the matrix $d$, each populated with a set linear in size. Furthermore, this happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Still, it was proven by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
 
 \section{Implementation}\label{sec:imp}
