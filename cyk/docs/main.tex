@@ -6,7 +6,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[colorlinks]{hyperref}
-\usepackage{amssymb, algorithm, algorithmic}
+\usepackage{amssymb, amsmath, algorithm, algorithmic}
 
 \sloppy
 
@@ -83,14 +83,13 @@ The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{}
 
 The main notion of CYK is the fact that every word in the language can be subdivided into a prefix and a suffix, starting with the base case, when there are only terminals, exhibiting its bottom-up nature. The CNF restriction for rules allows exactly this splitting behavior. Dynamic programming is employed to solve smaller problems, \emph{i.e.} check if substrings of an input are in the language.
 
-Consider Algorithm~\ref{alg:cyk}, that receives as input a word $w$ and a grammar $G$. We refer to its rules by $G.R$. We create an upper triangular $n \times n$ matrix $d$, where $n$ is the length of $w$, and by Lines 3--7, its diagonal is filled with all rules that produce each letter in $w$. Then, by Lines 8--20, for every substring length $\ell$ that is not trivial, create all possible prefix-suffix pairs by modifying their starting indices $r, t$. Compute the Cartesian product of the rules that generate these substrings, and check if there is a rule that generates one of the pairs. If so, add this rule to the whole substring set in the corresponding cell.
+Consider Algorithm~\ref{alg:cyk}, that receives as input a word $w$ and a grammar $G$. We refer to its rules by $G.R$. We create an upper triangular $n \times n$ matrix $d$, where $n$ is the length of $w$, and by Lines 3--7, its diagonal is filled with all rules that produce each letter in $w$. Then, by Lines 8--20, for every substring length $\ell$ that is not trivial, create all possible prefix-suffix pairs by modifying their starting indices $r, t$. Compute the Cartesian product of the rules that generate these substrings, and check if there is a rule that generates one of the pairs. If so, add this rule to the whole substring set in the corresponding cell. This will generate the diagonal correspondent to substrings of size $\ell$.
 
-\emph{~\cite[Example 7.34.]{}} Consider the CNF grammar $G$ below, and $w = baaba$.
-
+\emph{~\cite[Example 7.34.]{}} Let $G$ be the CNF grammar below, and $w = baaba$.
 \begin{align*}
-    S \rightarrow AB \mid BC \\
-    A \rightarrow BA \mid a \\
-    B \rightarrow CC \mid b \\
+    S \rightarrow AB \mid BC, \quad 
+    A \rightarrow BA \mid a, \quad
+    B \rightarrow CC \mid b, \quad
     C \rightarrow AB \mid a
 \end{align*}
 
