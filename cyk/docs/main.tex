@@ -6,7 +6,23 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[colorlinks]{hyperref}
-\usepackage{amssymb, amsmath, algorithm, algorithmic}
+\usepackage{amssymb, amsmath, algorithm, algorithmic, color, listings}
+
+\definecolor{codegreen}{rgb}{0, 0.6, 0}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codepurple}{rgb}{0.58, 0, 0.82}
+
+\lstset{
+  basicstyle=\scriptsize\ttfamily,
+  breaklines=true,
+  commentstyle=\color{codegreen},
+  extendedchars=true,
+  keywordstyle=\color{blue},
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  showstringspaces=false,
+  stringstyle=\color{codepurple}
+}
 
 \sloppy
 
@@ -107,6 +123,8 @@ Since $S \in d_{0}^{n - 1}$, then $w \in L(G)$.
 The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. Intuitively, this is the case since there are $n^{2}$ cells in the matrix $d$, each populated with a set linear in size. Furthermore, this happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Still, it was proven by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
 
 \section{Implementation}\label{sec:imp}
+
+\lstinputlisting[language=C++, firstline=115, lastline=144]{cyk.cpp}
 
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
