@@ -69,7 +69,7 @@ The CYK algorithm was discovered independently by Cocke~\cite{}, Younger~\cite{}
           \FOR{$(B, C) \in \mathcal{L} \times \mathcal{R}$}
             \IF{$(A \rightarrow BC) \in G.R$}
               \STATE{} $d_{r}^{r + \ell} \leftarrow d_{r}^{r + \ell} \cup \{A\}$
-                \COMMENT{if rule produces the pair, in that order}
+                \COMMENT{if rule produces $w[r:r + \ell]$}
             \ENDIF{}
           \ENDFOR{}
         \ENDFOR{}
