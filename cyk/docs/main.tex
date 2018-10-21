@@ -91,17 +91,15 @@ Consider Algorithm~\ref{alg:cyk}, that receives as input a word $w$ and a gramma
     B \rightarrow CC \mid b, \quad C \rightarrow AB \mid a.
 \]
 The resulting matrix for the CYK algorithm is
-
 \[
-    \begin{matrix}
-        \{B\} & b & c & d & e \\
-        \emptyset & \{A, C\} & c & d & e \\
-        \emptyset & \emptyset & \{A, C\} & d & e \\
-        - & \emptyset & \emptyset & \{B\} & e \\
-        - & \emptyset & \emptyset & \emptyset & \{A, C\} \\
-    \end{matrix}
+    d = \begin{bmatrix}
+        \{B\}     & \{S, A\}  & \emptyset & \emptyset & \{S, A, C\} \\
+        \emptyset & \{A, C\}  & \{B\}     & \{B\}     & \{S, A, C\} \\
+        \emptyset & \emptyset & \{A, C\}  & \{S, C\}  & \{B\}       \\
+        \emptyset & \emptyset & \emptyset & \{B\}     & \{S, A\}    \\
+        \emptyset & \emptyset & \emptyset & \emptyset & \{A, C\}    \\
+    \end{bmatrix}.
 \]
-
 The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. Intuitively, this is the case since there are $n^{2}$ cells in the matrix $d$, each populated with a set linear in size. Furthermore, this happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Still, it was proven by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
 
 \section{Implementation}\label{sec:imp}
