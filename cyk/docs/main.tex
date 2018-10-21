@@ -13,7 +13,7 @@
 \definecolor{codepurple}{rgb}{0.58, 0, 0.82}
 
 \lstset{
-  basicstyle=\scriptsize\ttfamily,
+  basicstyle=\tiny\ttfamily,
   breaklines=true,
   commentstyle=\color{codegreen},
   extendedchars=true,
@@ -124,9 +124,12 @@ The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and
 
 \section{Implementation}\label{sec:imp}
 
-\lstinputlisting[language=C++, firstline=115, lastline=144]{cyk.cpp}
-
 \bibliographystyle{sbc}
 \bibliography{sbc-template}
+
+\appendix
+
+\section{C++ implementation of CYK}\label{app:impl}
+\lstinputlisting[language=C++]{cyk.cpp}
 
 \end{document}
