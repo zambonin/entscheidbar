@@ -57,9 +57,11 @@ This is exactly the situation presented in~\cite{Guimaraes:misc:2018:oct}. Conte
 
 \section{Cocke–Younger–Kasami algorithm}\label{sec:cyk}
 
-The CYK algorithm was discovered independently by Cocke~\cite{Cocke:book:1970}, Younger~\cite{Younger:article:1967:feb} and Kasami~\cite{Kasami:report:1966:mar}. It is a bottom-up parser that uses dynamic programming to decide whether a word is member of a context-free language. Consider a grammar as a $4$-tuple $G = (V, \Sigma, R, S)$, where $V$ is a finite set of variables, $\Sigma$ is a finite set of terminals such that $V \cap \Sigma = \emptyset$, $S \in V$ is the start variable, and $\forall A, B, C \in V, \forall \alpha \in \Sigma$, $R$ is a finite set of rules with the forms $A \rightarrow \alpha$ or $A \rightarrow BC$. This definition of a CNF grammar is due to Sipser~\cite{Sipser:book:2006}, and note that converting any context-free grammar to its equivalent CNF normal form is possible~\cite[Theorem 2.9]{Sipser:book:2006}. We present a description of CYK in Algorithm~\ref{alg:cyk} and discuss it below.
+The CYK algorithm was discovered independently by Cocke~\cite{Cocke:book:1970}, Younger~\cite{Younger:article:1967:feb} and Kasami~\cite{Kasami:report:1966:mar}. It is a bottom-up parser that uses dynamic programming to decide whether a word is member of a context-free language. Consider a grammar as a $4$-tuple $G = (V, \Sigma, R, S)$, where $V$ is a finite set of variables, $\Sigma$ is a finite set of terminals such that $V \cap \Sigma = \emptyset$, $S \in V$ is the start variable, and $\forall A, B, C \in V, \forall \alpha \in \Sigma$, $R$ is a finite set of rules with the forms $A \rightarrow \alpha$ or $A \rightarrow BC$. This definition of a CNF grammar is due to Sipser~\cite{Sipser:book:2006}, and note that converting any context-free grammar to its equivalent CNF normal form is possible~\cite[Theorem 2.9]{Sipser:book:2006}. We present a description of CYK and discuss it below.
 
-\begin{algorithm}[ht]
+The main notion of CYK is the fact that every word in the language can be subdivided into a prefix and a suffix, starting with the base case, when there are only terminals, exhibiting its bottom-up nature. The CNF restriction for rules allows exactly this splitting behavior. Dynamic programming is employed to solve smaller problems, \emph{i.e.} check if substrings of an input are in the language.
+
+\begin{algorithm}
   \begin{algorithmic}[1]
     \REQUIRE{} $w \in \Sigma^{*}, G$
       \COMMENT{word, grammar in CNF}
@@ -97,11 +99,9 @@ The CYK algorithm was discovered independently by Cocke~\cite{Cocke:book:1970}, 
   \caption{CYK parser}\label{alg:cyk}
 \end{algorithm}
 
-The main notion of CYK is the fact that every word in the language can be subdivided into a prefix and a suffix, starting with the base case, when there are only terminals, exhibiting its bottom-up nature. The CNF restriction for rules allows exactly this splitting behavior. Dynamic programming is employed to solve smaller problems, \emph{i.e.} check if substrings of an input are in the language.
-
 Consider Algorithm~\ref{alg:cyk}, that receives as input a word $w$ and a grammar $G$. We refer to its rules by $G.R$. We create an upper triangular $n \times n$ matrix $d$, where $n$ is the length of $w$, and by Lines 3--7, its diagonal is filled with all rules that produce each letter in $w$. Then, by Lines 8--20, for every substring length $\ell$ that is not trivial, create all possible prefix-suffix pairs by modifying their starting indices $r, t$. Compute the Cartesian product of the rules that generate these substrings, and check if there is a rule that generates one of the pairs. If so, add this rule to the whole substring set in the corresponding cell. This will generate the diagonal correspondent to substrings of size $\ell$.
 
-\emph{~\cite[Example 7.34.]{}} Let $G$ be the CNF grammar below, and $w = baaba$.
+\emph{~\cite[Example 7.34.]{Hopcroft:book:2006}} Let $G$ be the CNF grammar below, and $w = baaba$.
 \begin{align*}
     S &\rightarrow AB \mid BC \\
     A &\rightarrow BA \mid a \\
@@ -120,7 +120,7 @@ The resulting matrix for the CYK algorithm is
 \]
 Since $S \in d_{0}^{n - 1}$, then $w \in L(G)$.
 
-The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. Intuitively, this is the case since there are $n^{2}$ cells in the matrix $d$, each populated with a set linear in size. Furthermore, this happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Still, it was proven by Lee~\cite{} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
+The algorithm has a complexity of $\mathcal{O}(n^{3} \cdot s)$, $n$ as above and $s$ as the quantity of variables and terminals for every $r \in R$. Intuitively, this is the case since there are $n^{2}$ cells in the matrix $d$, each populated with a set linear in size. Furthermore, this happens because, unlike parsers that are restricted to specific types of grammars, CYK can parse every context-free grammar. Still, it was proven by Lee~\cite{Lee:article:2002:jan} that context-free parsing is equivalent to Boolean matrix multiplication, thus implying that this complexity can be turned sub-cubic.
 
 \section{Implementation}\label{sec:imp}
 
