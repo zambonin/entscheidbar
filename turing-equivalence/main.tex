@@ -147,7 +147,7 @@ When studying formal systems, it is natural to think about how elements (or term
 
 Let us formally define a string rewriting system. This definition is taken from~\cite{}. Consider $\Sigma$ to be a finite set of symbols, that is, an alphabet, and a binary relation $R \subseteq \Sigma^{*} \times \Sigma^{*}$. A string rewriting system is the $2$-tuple $S = (\Sigma, R)$. Any member $x \in R$ is called a rewrite rule. Further, take any words $u, v, x, y \in \Sigma^{*}$ and define the single-step reduction relation $u \rightarrow_{R} v$, if and only if there exists a pair $(l, r) \in R$ such that $u = xly$ and $v = xry$. This enables any substring to be rewritten according to the rules of $S$. The reduction relation $u \stackrel{*}{\rightarrow}_{R} v$ is the reflexive transitive closure of $\rightarrow_{R}$, that represents all substrings that can be created by an initial string. Evidently, this closure may be finite or infinite.
 
-This formalism 
+This formalism is historically known as semi-Thue systems, due to Thue~\cite{}. Other formalisms that deal with strings, such as tag systems, Post canonical systems and Markov algorithms can be reduced to a string rewriting system description~\cite{}.
 
 % rewriting is abstract enough to be useful
 % semi-thue systems are actually abstractions of unrestricted grammars, which in turn are equivalent to turing machines
