@@ -149,7 +149,7 @@ Let us formally define a SRS. This definition is taken from~\cite{}. Consider $\
 
 This formalism is historically known as a semi-Thue system, and was first defined by Thue~\cite{}\footnote{This work was translated to English by Power~\cite{}.}. It is abstract enough to represent other definitions, for instance, that of a free monoid in abstract algebra. To show that it is equivalent to a Turing machine, we will follow the reasoning presented by Davis~\cite{}. Afterwards, we show that a handful of constructions are directly related to string rewriting systems. We will present succinct definitions for Post canonical systems, tag systems, Markov algorithms and unrestricted grammars, with the intent of constructively showing that a SRS has the same computational power than a Turing machine.
 
-First, one must prove that a general string rewriting system generates a set of outputs that is recursively enumerable. 
+First, a possible proof strategy is based on the concept of a recursively enumerable (r.e.) language. Indeed, a string rewriting system is a formal language. Then, one must prove that a general SRS generates a set of outputs that is a r.e. subset of the set of all possible words over its alphabet. This means that 
 
 % define a string rewriting system, or semi-thue system, very formally
 % small examples (that unary example is pretty cool)
