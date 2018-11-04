@@ -170,7 +170,12 @@ Now, we turn to examples of equivalent definitions for string rewriting systems.
 
 Hence, a Post canonical system is a $3$-tuple $\mathcal{P} = (\Sigma, X, P)$, with the restrictions above. If each $p \in P$ has the form $g\$ \rightarrow \$h$ with $g, h, \$ \in \Sigma^{*}$, $\mathcal{P}$ is a Post normal system. We can see that every production in a Post canonical system can be split into smaller productions. Indeed, Post normal systems are equivalent to their canonical counterparts~\cite[Theorem 13.1]{}. We can then use this result to demonstrate that Post normal systems are in fact equivalent to string rewriting systems~\cite[Sec. 6.5, Theorem 5.1]{}.
 
-\emph{Example.~\cite[Problem 12-4.3]{}} Let a Post canonical system $\mathcal{P} = (\Sigma, X, P)$ that describes multiplication of unary strings, such that $\Sigma = \{1, \times, =\}, X = \{1 \times 1 = 1\}, P = \{p_{1}, p_{2}\}$, where $p_{1} = \$_{1} \times \$_{2} = \$_{3} \rightarrow \$_{1}1 \times \$_{2} = \$_{3}\$_{2}$ and $p_{2} = \$_{1} \times \$_{2} = \$_{3} \rightarrow \$_{2} \times \$_{1} = \$_{3}$. Let us compute $3 \times 4 = 12$, or rather, the unary string representing this operation.
+\emph{Example.~\cite[Problem 12-4.3]{}} Let a Post canonical system $\mathcal{P} = (\Sigma, X, P)$ that describes multiplication of unary strings, such that $\Sigma = \{1, \times, =\}, X = \{1 \times 1 = 1\}, P = \{p_{1}, p_{2}\}$, where 
+\begin{align}
+    p_{1} = \$_{1} \times \$_{2} = \$_{3} \rightarrow \$_{1}1 \times \$_{2} = \$_{3}\$_{2}, \\
+    p_{2} = \$_{1} \times \$_{2} = \$_{3} \rightarrow \$_{2} \times \$_{1} = \$_{3}.
+\end{align}
+$$. Let us compute $3 \times 4 = 12$, or rather, the unary string representing this operation.
 \begin{align}
     1    \times 1    &= 1            \label{eq:1} \\
     11   \times 1    &= 11           \label{eq:2} \\
@@ -180,7 +185,10 @@ Hence, a Post canonical system is a $3$-tuple $\mathcal{P} = (\Sigma, X, P)$, wi
     11   \times 1111 &= 11111111     \label{eq:6} \\
     111  \times 1111 &= 111111111111 \label{eq:7}
 \end{align}
-Observe that Eq.~\ref{eq:1} is given by the only axiom in $X$. We apply the first production rule, $p_{1}$, in Eqs.~\ref{eq:2},~\ref{eq:3} and~\ref{eq:4}, to expand the first 
+Observe that Eq.~\ref{eq:1} is given by the only axiom in $X$. We apply $p_{1}$ in Eqs.~\ref{eq:2},~\ref{eq:3} and~\ref{eq:4}, to expand the first and last variables. Eq.~\ref{eq:5} swaps the terms around with $p_{2}$ and Eqs.~\ref{eq:6} and~\ref{eq:7} use $p_{1}$ again to carry out the remaining multiplications. Further, observe that
+\begin{align}
+    \$_{1} \times \$_{2} = \$_{3} \rightarrow \$_{1}1 \times \$_{2} = \$_{3}\$_{2}
+\end{align}
     
 % collatz example
 % example with cellular automata, rule 110
