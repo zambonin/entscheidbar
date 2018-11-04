@@ -246,14 +246,17 @@ In the year 1900, Hilbert famously posed a list of 23 interesting mathematical p
 In modern words, it is asked for an algorithm that can decide if, for any possible Diophantine equation, it has a solution comprised only of integers. To understand this question and draw the appropriate parallels between mathematics and computability theory, we first need to define Diophantine equations and other helpful notions.
 
 A Diophantine equation is a multivariate polynomial with integer coefficients, \emph{i.e.}
-\begin{equation*}
-    D(x_{1}, x_{2}, \dots, x_{n}) = 0, \qquad n \in \mathbb{N}^{*},
-\end{equation*}
-such that only integral solutions are considered, that is, all variables must be integers. Trivial examples are the Pythagorean equation $a^{2} + b^{2} = c^{2}$, or Bézout's identity $ax + by = 1$. Note that variables can appear as exponents, in which case an exponential Diophantine equation occurs. Further, a family of Diophantine equations is given by
-\begin{equation*}
+\begin{align}
+    D(x_{1}, x_{2}, \dots, x_{n}) = 0, \qquad n \in \mathbb{N}^{*}, \label{eq:d}
+\end{align*}
+such that only integral solutions are considered, that is, all variables must be integers. Examples are the Pythagorean equation $a^{2} + b^{2} = c^{2}$, or Bézout's identity $ax + by = 1$. Note that variables can appear as exponents, in which case an exponential Diophantine equation occurs. Further, a family of Diophantine equations is given by
+\begin{align*}
     D(a_{1}, \dots, a_{m}, x_{1}, \dots, x_{n}) = 0, \qquad m, n \in \mathbb{N}^{*},
-\end{equation*}
-where all $a_{i}$ are called variables and all $x_{i}$ are called unknowns. 
+\end{align*}
+where all $a_{i}$ are called variables and all $x_{i}$ are called unknowns. Note that it may the case where a set of variables $(a_{1}, \dots, a_{m})$ does not give rise to a Diophantine equation with a valid solution. Further, a set $S$ consisting of $m$-tuples of variables that satisfy Eq.~\ref{eq:d}, that is,
+\begin{align}
+    
+\end{align}
 
 \section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
