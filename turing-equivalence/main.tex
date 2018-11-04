@@ -100,14 +100,14 @@ Gliders and glider guns are patterns used to build logic ports (\texttt{AND}, \t
 
 \subsubsection{Building a Turing Machine}
 
-Rendell~\cite{Rendell:inproc:2011:jul, Rendell:misc:2014} showed how to build a Turing machine with Game of Life patterns. Figure~\ref{fig:gol_mt_highlevel} illustrates the Turing machine diagram built with the game. The machine has a finite state machine with stacks to represent the states and tape, respectively. More precisely, the machine has two address mechanisms, one for states and other for symbol value. Moreover, the machine has nine memory cells. Each cell stores information about actions that can be taken for each combination between state and symbol.
+Rendell~\cite{Rendell:inproc:2011:jul, Rendell:phd:2014:jan} showed how to build a Turing machine with Game of Life patterns. Figure~\ref{fig:gol_mt_highlevel} illustrates the Turing machine diagram built with the game. The machine has a finite state machine with stacks to represent the states and tape, respectively. More precisely, the machine has two address mechanisms, one for states and other for symbol value. Moreover, the machine has nine memory cells. Each cell stores information about actions that can be taken for each combination between state and symbol.
 
 %Rendall~\cite{rendall} mostrou que é possível construir uma Máquina de Turing com padrões do \textit{Game of Life}. A Figura~\ref{fig:gol_mt_highlevel} ilustra o diagrama da Máquina de Turing construída com o jogo. O diagrama possui um autômato finito e pilhas para representar os estados da máquina e a fita, respectivamente. Mais precisamente, o autômato finito possui dois mecanismos de endereçamento, um para os estados da máquina e outro para o símbolo atual. Além disso, a máquina de estados finito possui nove células de memória. As células são responsáveis por guardar informações sobre as ações que devem ser realizadas em cada combinação entre estado e símbolo.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.6\textwidth]{figs/gol_mt_highlevel.pdf}
-    \caption{Turing Machine diagram.}
+    \includegraphics[width=0.75\textwidth]{figs/gol_mt_highlevel.pdf}
+    \caption{Turing Machine diagram. Original image by Rendell~\cite{Rendell:inproc:2011:jul}.}
     \label{fig:gol_mt_highlevel}
 \end{figure}
 
@@ -126,19 +126,19 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.6\textwidth]{figs/gol_mt.pdf}
-    \caption{Patterns used in the Turing machine.}
+    \caption{Patterns used in the Turing machine. Original image by Rendell~\cite{Rendell:inproc:2011:jul}.}
     \label{fig:gol_mt}
 \end{figure}
 
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
-Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represent a line in a bi-dimensional matrix. The head of each tape will represent two possible situations: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell. The head representing the central cell can move to evaluate neighbours cells on the same tape. Hence, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tape to simulate a sweep on the matrix. Moreover, $\delta$ will be transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
+Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represents a line in a bi-dimensional matrix. The head of each tape will point to two possible types of cells: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell (neighbours). The head representing the central cell can move to evaluate neighbours cells on the same tape. Hence, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tape to simulate a sweep on the matrix. Moreover, $\delta$ will be transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
 
 %Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
 \subsubsection{Applications}
 
-The Game of Life may be used in several applications, mainly in non linear system models in physic, mathematical, biological and other fields. More precisely, a cellular automata can be used in a private-public cryptosystem~\cite{Guan:article:1987}. Hence, we can represent a set of bits $S$ as a field or ring. The rules used by the automata may be represented as polynomial functions, making possible add and multiply operations over $S$. Moreover, cellular automatas may be used to generate random integer numbers~\cite{Wolfram:article:1986}.
+The Game of Life may be used in several applications, mainly in non linear system models in physic, mathematical, biological and other fields. More precisely, a cellular automata can be used in a private-public cryptosystem~\cite{Guan:article:1987:feb}. Hence, we can represent a set of bits $S$ as a field or ring. The rules used by the automata may be represented as polynomial functions, making possible add and multiply operations over $S$. Moreover, cellular automatas may be used to generate random integer numbers~\cite{Wolfram:article:1986:jun}.
 
 %O \textit{Game of Life} pode ser utilizado em uma série de aplicações, principalmente na modelagem de sistemas não lineares nos campos físicos, biológicos, químicos, entre outros. Mais precisamente, um autômato celular pode ser utilizado em um sistema de chaves pública-privada~\ref{cellular}. Nessa aplicação, é possível representar um conjunto $S$ de bits como um campo ou anel. As regras utilizadas pelo autômato são representadas por funções polinomiais. Desta forma, é possível realizar operações de adição e multiplicação sobre $S$. Além disso, autômatos celulares podem ser utilizados para gerar números inteiros aleatórios~\ref{random-sequence-generation-cellular-automata.pdf} e outro formalismo Turing completo, denominado \textit{Rule} 110.
 
