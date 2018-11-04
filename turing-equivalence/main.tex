@@ -30,7 +30,7 @@ Solving problems is paramount to the advance of society, often being useful to a
 
 Note that this computational process may actually never stop, \emph{i.e.} $f(x)$ may be an undefined value. It would be interesting to determine this behaviour for any combination of algorithms --- or ``computer programs'' --- and inputs. Called the halting problem, this was proved to be impossible to solve through the Turing machine model of computation. It is not a computable function, that is, there is no algorithm that accurately determines whether an arbitrary algorithm will halt. The halting problem is frequently featured when models are proven to be equivalent to Turing machines, and will aid to clarify the reasoning behind these.
 
-Models of computation that can simulate Turing machines are called Turing-complete, or universal, and Turing-equivalent if a Turing machine can simulate that model. These definitions are the same in practice, since all Turing-complete systems known are also Turing-equivalent (by the Church--Turing thesis, this should remain the case for any computable functions). To efficiently study models whose Turing-equivalence may not be obvious, we recall the definition of a Turing machine and give descriptions of such models in terms of these machines.
+Models of computation that can simulate Turing machines are called Turing-complete, or universal, and Turing-equivalent, if a Turing machine can simulate that model. These definitions are the same in practice, since all Turing-complete systems known are also Turing-equivalent (by the Church--Turing thesis, this should remain the case for any computable functions). To efficiently study models whose Turing-equivalence may not be obvious, we recall the definition of a Turing machine and give descriptions of such models in terms of these machines.
 
 A Turing machine consists of a finite number of states, and features an infinite one-dimensional tape divided into cells, each of which holds a symbol from a finite tape alphabet. A tape head is always positioned at exactly one of the cells, and can write to that cell, move to its left or right neighbours, or order the machine to change states. The input, consisting of words from a subset of the tape alphabet, is placed on the tape, each symbol in its own cell, and all others initialised to blank, a special symbol from the tape alphabet, and the tape head rests on the leftmost filled cell. The tape is moved according to a series of instructions.
 
@@ -247,7 +247,7 @@ In modern words, it is asked for an algorithm that can decide if, for any possib
 
 A Diophantine equation is a multivariate polynomial with integer coefficients, \emph{i.e.}
 \begin{align}
-    D(x_{1}, x_{2}, \dots, x_{n}) = 0, \qquad n \in \mathbb{N}^{*}, \label{eq:d}
+    D(x_{1}, x_{2}, \dots, x_{n}) = 0, \qquad n \in \mathbb{N}^{*}, \label{eq:d1}
 \end{align}
 such that only integral solutions are considered, that is, all variables must be integers. Examples are the Pythagorean equation $a^{2} + b^{2} = c^{2}$, or Bézout's identity $ax + by = d$. Note that variables can appear as exponents, in which case an exponential Diophantine equation occurs. Generalising this concept, a family of Diophantine equations is given by
 \begin{align}
@@ -269,7 +269,9 @@ Section 5.5 then establishes that sets encoding Turing machines, that is, r.e. s
 
 The argument above is generalised to the execution of multiple steps by the Turing machine. By means of concatenating all intermediate configurations, a superconfiguration is created, that describes the operation of a supermachine, with multiple heads and tapes, operating in accordance with the original machine. After determining several results on the uniqueness and behaviour of these equations and asserting that they are Diophantine, it is thus proved that any Turing machine has an equivalent Diophantine representation. Finally, Section 5.6 gives an argument on the unsolvability of the halting problem through the lenses of these equations.
 
-To further illustrate the concept of Diophantine equations as general problem solvers, we show the notion of non-deterministic Diophantine machines. Due to Adleman and Manders~\cite{}, this definition was presented much earlier than the proof showed above. Still, it captures intuitively the processing power of Diophantine equations. Consider Eq.~\ref{eq:d2}.
+To further illustrate the concept of Diophantine equations as general problem solvers, we show the notion of non-deterministic Diophantine machines. Due to Adleman and Manders~\cite{}, this definition was presented much earlier than the proof showed above. Still, it captures intuitively the processing power of Diophantine equations. Consider Eq.~\ref{eq:d2}, and let the machine work as follows: input the tuple of variables $(a_{1}, \dots, a_{m})$ and non-deterministically guess tuples of unknowns $(x_{1}, \dots, x_{n})$. If a root is found, then accept the corresponding tuple of variables. For instance, if the equation is $a_{1} - x_{1}^{2} = 0$, then the machine naturally decides whether a number is a perfect square.
+
+
 
 \section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
