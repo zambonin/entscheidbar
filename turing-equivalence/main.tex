@@ -42,7 +42,7 @@ In this work, we present three models of computation and give proof ideas of the
 
 \section{Cellular automata}\label{sec:ca}
 
-In this section we show two Turing-complete cellular automatas. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a cell grid (\texttt{1D}, \texttt{2D} e \texttt{3D}) and each cell can be: $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
+In this section we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a cell grid (\texttt{1D}, \texttt{2D} e \texttt{3D}) and each cell can be: $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
 
 %Nesta seção apresentaremos dois autômatos celulares que são Turing completos. Mais precisamente, um autômato celular é um modelo discreto muito estudado em várias áreas. O modelo consiste de uma matriz de células (\texttt{1D}, \texttt{2D} e \texttt{3D}), onde cada célula da matriz apresenta apenas dois valores: $0$ ou $1$. Para cada célula, temos um conjunto de vizinhos que são definidos pelas suas células adjacentes. A configuração inicial do autômato é criada atribuindo valores para cada célula da matriz. Em cada configuração posterior (geração), o valor de cada célula da matriz é atualizado seguindo um conjunto de regras, caracterizando uma modificação no estado da célula.
 
@@ -104,12 +104,12 @@ Rendell~\cite{rendell2011, Rendell:misc:2014} showed how to build a Turing machi
 
 %Rendall~\cite{rendall} mostrou que é possível construir uma Máquina de Turing com padrões do \textit{Game of Life}. A Figura~\ref{fig:gol_mt_highlevel} ilustra o diagrama da Máquina de Turing construída com o jogo. O diagrama possui um autômato finito e pilhas para representar os estados da máquina e a fita, respectivamente. Mais precisamente, o autômato finito possui dois mecanismos de endereçamento, um para os estados da máquina e outro para o símbolo atual. Além disso, a máquina de estados finito possui nove células de memória. As células são responsáveis por guardar informações sobre as ações que devem ser realizadas em cada combinação entre estado e símbolo.
 
-%\begin{figure}[h]
-%    \centering
-%    \includegraphics[width=1\textwidth]{figs/gol_mt_highlevel.pdf}
-%    \caption{Turing Machine diagram.}
-%    \label{fig:gol_mt_highlevel}
-%\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figs/gol_mt_highlevel.pdf}
+    \caption{Turing Machine diagram.}
+    \label{fig:gol_mt_highlevel}
+\end{figure}
 
 The tape is portrayed with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterise a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
 
@@ -125,13 +125,9 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.3\textwidth]{figs/gol_mt.pdf}
+    \includegraphics[width=0.6\textwidth]{figs/gol_mt.pdf}
     \caption{Patterns used in the Turing machine.}
     \label{fig:gol_mt}
-    \qquad
-    \includegraphics[width=0.2\textwidth]{figs/gol_mt_highlevel.pdf}
-    \caption{Turing Machine diagram.}
-    \label{fig:gol_mt_highlevel}
 \end{figure}
 
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
