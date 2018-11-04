@@ -133,6 +133,8 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
+In a similar way, 
+
 %Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
 \subsubsection{Applications}
@@ -167,7 +169,7 @@ Conversely, we want string rewriting systems to emulate Turing machines. We will
 
 Now, we turn to examples of equivalent definitions for string rewriting systems. We start with the Post canonical system. This definition is taken from Minsky~\cite{}. Let $\Sigma$ be a finite alphabet, a set of axioms $X$ composed of strings from the alphabet, and a set of productions $P$ of the form $u \rightarrow v$, where $u = g_{0}\$_{1}g_{1}\$'{1} \dots \$_{n}g_{n}$ is the antecedent and $v = h_{0}\$'_{1}h_{1}\$'_{1} \dots \$'_{n}h_{n}$ is the consequent. For $i = \{0, \dots, n\}$, $g_{i}, h_{i} \in \Sigma^{*}$, and $\$_{i}$ are called variables, that have to be replaced by their respective $\$'_{i}$. These variables are also words from the alphabet.
 
-Hence, a Post canonical system is a $3$-tuple $\mathcal{P} = (\Sigma, X, P)$.
+Hence, a Post canonical system is a $3$-tuple $\mathcal{P} = (\Sigma, X, P)$, with the restrictions above. If each $p \in P$ has the form $g\$ \rightarrow \$h$ with $g, h, \$ \in \Sigma^{*}$, $\mathcal{P}$ is a Post normal system. These definitions are equivalent~\cite[Theorem 13.1]{}.
 
 % collatz example
 % example with cellular automata, rule 110
