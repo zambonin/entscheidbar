@@ -132,7 +132,7 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
-Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represent a line in an bi-dimensional matrix. The head of each tape will represent two possible situations: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell. The head representing the central cell can move to evaluate neighbours cells on the same tape. Therefore, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = (Q, $\Gamma$, $\Sigma$, $\delta$, $q_0$, B, F), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet
+Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represent a line in an bi-dimensional matrix. The head of each tape will represent two possible situations: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell. The head representing the central cell can move to evaluate neighbours cells on the same tape. Therefore, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in $
 
 %Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
@@ -259,7 +259,9 @@ where all $a_{i}$ are called variables and all $x_{i}$ are called unknowns. Note
 \end{align}
 is called a Diophantine set. The set of Pythagorean triples is Diophantine, as is the set of natural numbers, prime numbers, and many others. In fact, we will see that these sets can be thought of entirely as other concepts.
 
-With these definitions in mind, we may look at how the question of Hilbert was solved. First, note that all Diophantine sets are recursively enumerable, since a Turing machine can enumerate all possible pairs of variables and unknowns and then test if they are valid solutions. However, are all r.e. sets also Diophantine, that is, can a Turing machine decide whether a tuple of unknowns solves a Diophantine equations with fixed variables? This was answered negatively by 
+With these definitions in mind, we may look at how the question of Hilbert was solved. First, note that all Diophantine sets are recursively enumerable, since a Turing machine can enumerate all possible pairs of variables and unknowns and then test if they are valid solutions to a equation. However, are all r.e. sets also Diophantine, that is, can a Turing machine decide whether a Diophantine equation can be solved? This statement was answered negatively by Matiyasevich~\cite{}, and it is another formulation of the halting problem. In other words, Diophantine equations have the same computational power as Turing machines.
+
+We will follow the proof idea due to Matiyasevich~\cite[Chap. 5]{}.
 
 \section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
