@@ -189,8 +189,16 @@ Observe that Eq.~\ref{eq:1} is given by the only axiom in $X$. We apply Eq.~\ref
 
 A special case of Post normal systems are tag systems, where productions have special restrictions. This definition is due to Minsky~\cite[Sec. 14.6]{}. Namely, all antecedents have the same length $n$ and all consequents depend only on the first letter of its respective antecedent. By virtue of these characteristics, it is helpful to think about how to operate such a system. The first letter for the string being operated is read and an appropriate production chosen. Then, its first $n$ letters are deleted, and the consequent for the chosen production is appended to the end of the string.
 
-Let a tag system $\mathcal{T} = (\Sigma, X, P)$, with $n = 2, \Sigma = \{a, b, c\}, X = \{a^{n} | n \in \mathbb{N}^{*}\}, P = \{p_{1}, p_{2}, p_{3}\}$. We wish to compute Collatz sequences, as done by de Mol~\cite{}.
-    
+Let a tag system $\mathcal{T} = (\Sigma, X, P)$, with $n = 2, \Sigma = \{a, b, c\}, X = \{a^{n} | n \in \mathbb{N}^{*}\}, P = \{p_{1}, p_{2}, p_{3}\}$. The Collatz conjecture asks if, for any positive integer, repeated applications of
+\begin{align}
+    f(n) = 
+    \begin{cases}
+        \frac{n}{2} \\
+        b
+    \end{cases}
+\end{align}
+eventually reaches $1$. We wish to compute these Collatz sequences, as done by de Mol~\cite{}. 
+     
 % collatz example
 % example with cellular automata, rule 110
 
