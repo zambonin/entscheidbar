@@ -248,15 +248,16 @@ In modern words, it is asked for an algorithm that can decide if, for any possib
 A Diophantine equation is a multivariate polynomial with integer coefficients, \emph{i.e.}
 \begin{align}
     D(x_{1}, x_{2}, \dots, x_{n}) = 0, \qquad n \in \mathbb{N}^{*}, \label{eq:d}
-\end{align*}
-such that only integral solutions are considered, that is, all variables must be integers. Examples are the Pythagorean equation $a^{2} + b^{2} = c^{2}$, or Bézout's identity $ax + by = 1$. Note that variables can appear as exponents, in which case an exponential Diophantine equation occurs. Further, a family of Diophantine equations is given by
-\begin{align*}
-    D(a_{1}, \dots, a_{m}, x_{1}, \dots, x_{n}) = 0, \qquad m, n \in \mathbb{N}^{*},
-\end{align*}
-where all $a_{i}$ are called variables and all $x_{i}$ are called unknowns. Note that it may the case where a set of variables $(a_{1}, \dots, a_{m})$ does not give rise to a Diophantine equation with a valid solution. Further, a set $S$ consisting of $m$-tuples of variables that satisfy Eq.~\ref{eq:d}, that is,
-\begin{align}
-    
 \end{align}
+such that only integral solutions are considered, that is, all variables must be integers. Examples are the Pythagorean equation $a^{2} + b^{2} = c^{2}$, or Bézout's identity $ax + by = 1$. Note that variables can appear as exponents, in which case an exponential Diophantine equation occurs. Generalising this concept, a family of Diophantine equations is given by
+\begin{align}
+    D(a_{1}, \dots, a_{m}, x_{1}, \dots, x_{n}) = 0, \qquad m, n \in \mathbb{N}^{*}, \label{eq:d2}
+\end{align}
+where all $a_{i}$ are called variables and all $x_{i}$ are called unknowns. Note that it may be the case where a set of variables does not give rise to a Diophantine equation with a valid solution. Further, a set $S$ consisting of $m$-tuples of variables that satisfy Eq.~\ref{eq:d2} in its unknowns, that is,
+\begin{align}
+    (a_{1}, \dots, a_{m}) \in S \Leftrightarrow \exists (x_{1}, \dots, x_{n}) \text{ s.t. } D(a_{1}, \dots, a_{m}, x_{1}, \dots, x_{n}) = 0,
+\end{align}
+is called a Diophantine set. The set of Pythagorean triples is Diophantine, as is the set 
 
 \section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
