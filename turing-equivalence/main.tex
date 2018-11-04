@@ -163,19 +163,9 @@ First, the author proves a handful of lemmas about a specifically constructed SR
 
 A more tangible example is given by Hamel~\cite{}. Informally, consider a Turing machine in which its tape is divided in three parts, marked with special symbols. The first part holds the input string, and the second part contains the rules for the SRS. The third part is initially empty and serves as a scratchpad for eventual partial computations. To process the input, the machine should try to match the leftmost symbols of the input string with the left sides of rules in the second tape, and substitute them as described by the right side of the earliest matched rule. When no further matching is possible, the computation stops.
 
-Conversely, we want string rewriting systems to emulate Turing machines. We will create sets of rules, divided into those that can move the tape head forwards, or backwards, or actual calculations upon the input string. Of course, we need to signal where the input begins and ends
+Conversely, we want string rewriting systems to emulate Turing machines. We will create sets of rules, divided into those that can move the tape head forwards, or backwards, or actual calculations upon the input string. Of course, we need to signal where the input begins and ends, current position of the tape head and state information with special symbols. Hence, we will have a list of rules that acts on a partial string that represents a pseudo-tape. Indeed, these sets of rules will be finite, since they are equivalent to the description of possible transitions in a Turing machine.
 
-% We first show that TMs can simulate SRSs.  Assume that we have a three-tape
-% machine with one tape holding the input string, the other holding the list of rules, and
-% the third is used as a scratchpad.  It is easy to see that computation works by pattern
-% matching of left-sides of rules to the string on the first tape.  Computation stops once
-% no further left-sides of rules can be identified in the string on the first tape.
-% We now show that SRSs can simulate turing machines.  First we introduce special
-% symbols such as beginning and end of input, current position of RW-head, and special
-% state information if necessary.  We then partition the rules into sections:  one for
-% moving the virtual RW-head forward, one for moving it backward, and one for doing
-% the actual computations all using the special symbols.  When no further rules can be
-% applied to the input string then computation will halt.
+
 
 % collatz example
 % example with cellular automata, rule 110
