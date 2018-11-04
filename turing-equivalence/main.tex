@@ -237,13 +237,15 @@ We cannot help but list various other formalisms such as Markov algorithms, cycl
 
 Connections between areas of mathematics are quite common, allowing researchers to reuse and adapt existing knowledge to other, possibly very distinct concepts. Since theoretical computer science is evidently a branch of mathematics, it is expected that such translations are to occur within this subset. Hence, it is likely that results from pure mathematics affect computer science or vice-versa, or that computational approaches may help with more abstract notions. Indeed, the very first computer scientists were originally mathematicians. In this section, we will see how a result from number theory connects with ideas of computability theory, and gives rise to a curious formalism equivalent to Turing machines.
 
-Famously, in 1900 Hilbert posed a list of 23 mathematical problems~\cite{}, which were at the time unsolved. We will focus on the tenth problem, that is enunciated as follows.
+In the year 1900, Hilbert famously posed a list of 23 interesting mathematical problems~\cite{}, which were at the time unsolved. Although their descriptions are simple, they have eluded many mathematicians since their publication. We will focus on the tenth problem, a number-theoretic question that is enunciated as follows.
 
 \begin{quote}
     Given a Diophantine equation with any number of unknown quantities and with rational integral numerical coefficients: to devise a process according to which it can be determined by a finite number of operations whether the equation is solvable in rational integers.
 \end{quote}
 
-In modern words, it is asked for an algorithm to decide if for, any given Diophantine equation, 
+In modern words, it is asked for an algorithm that can decide if, for any possible Diophantine equation, it has a solution comprised only of integers. To understand this question and draw the appropriate parallels between mathematics and computability theory, we first need to define Diophantine equations and other helpful notions.
+
+
 
 \section{Conclusion}\label{sec:conc}
 % in this work we have seen some models of computation that have applications outside theory of computation, like mathematics and biology
