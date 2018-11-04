@@ -65,7 +65,7 @@ Figure~\ref{fig:stencil} shows, in a simplified manner, how cell update works. F
     \item An alive cell with less than two alive neighbours in $t$ will not survive the next generation ($t'$), becoming a dead cell.
     \item An alive cell with two or three alive neighbours in $t$ will survive the next generation.
     \item An alive cell with more than three neighbours in $t$ will not survive.
-    \item A dead cell with exactly three neighbours in $t$ will become live cell.
+    \item A dead cell with exactly three neighbours in $t$ will become a live cell.
 \end{itemize}
 
 %A Figura~\ref{fig:stencil} ilustra, de forma simplificada, o funcionamento do jogo. Para cada célula de uma configuração $t$, será realizada uma computação de novo estado, onde o resultado é influenciado pelos vizinhos adjacentes da célula respectiva. Desta forma, teremos uma configuração $t'$ resultante. Mais precisamente, o jogo utiliza um tempo discreto. Em um tempo $t'$, a célula apresenta um estado que depende de outras oito células adjacentes em um tempo $t$ imediatamente anterior. Desta forma, cada célula da matriz é atualizada pela sua configuração anterior. Quando uma célula se torna viva ou morta em um tempo $t'$, pode-se determinar se ela sobreviveu ou não por mais uma geração (\textit{time step}), respectivamente. As seguintes regras são utilizadas para determinar o estado de uma célula em uma configuração $t'$, dependendo de $t$:
@@ -100,7 +100,7 @@ Gliders and glider guns are patterns used to build logic ports (\texttt{AND}, \t
 
 \subsubsection{Building a Turing Machine}
 
-Rendell~\cite{rendell2011, Rendell:misc:2014} showed how to build a Turing machine with Game of Life patterns. Figure~\ref{fig:gol_mt_highlevel} illustrates the Turing machine diagram built with the game. The machine has a finite state machine with stacks to represent the states and tape, respectively. More precisely, the machine has two address mechanisms, one for states and other for symbol value. Moreover, the machine has nine memory cells. Each cell stores information about actions that can be taken for each combination between state and symbol.
+Rendell~\cite{Rendell:inproc:2011:jul, Rendell:misc:2014} showed how to build a Turing machine with Game of Life patterns. Figure~\ref{fig:gol_mt_highlevel} illustrates the Turing machine diagram built with the game. The machine has a finite state machine with stacks to represent the states and tape, respectively. More precisely, the machine has two address mechanisms, one for states and other for symbol value. Moreover, the machine has nine memory cells. Each cell stores information about actions that can be taken for each combination between state and symbol.
 
 %Rendall~\cite{rendall} mostrou que é possível construir uma Máquina de Turing com padrões do \textit{Game of Life}. A Figura~\ref{fig:gol_mt_highlevel} ilustra o diagrama da Máquina de Turing construída com o jogo. O diagrama possui um autômato finito e pilhas para representar os estados da máquina e a fita, respectivamente. Mais precisamente, o autômato finito possui dois mecanismos de endereçamento, um para os estados da máquina e outro para o símbolo atual. Além disso, a máquina de estados finito possui nove células de memória. As células são responsáveis por guardar informações sobre as ações que devem ser realizadas em cada combinação entre estado e símbolo.
 
