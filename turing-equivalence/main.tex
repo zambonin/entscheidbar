@@ -104,12 +104,12 @@ Rendell~\cite{rendell2011, Rendell:misc:2014} showed how to build a Turing machi
 
 %Rendall~\cite{rendall} mostrou que é possível construir uma Máquina de Turing com padrões do \textit{Game of Life}. A Figura~\ref{fig:gol_mt_highlevel} ilustra o diagrama da Máquina de Turing construída com o jogo. O diagrama possui um autômato finito e pilhas para representar os estados da máquina e a fita, respectivamente. Mais precisamente, o autômato finito possui dois mecanismos de endereçamento, um para os estados da máquina e outro para o símbolo atual. Além disso, a máquina de estados finito possui nove células de memória. As células são responsáveis por guardar informações sobre as ações que devem ser realizadas em cada combinação entre estado e símbolo.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{figs/gol_mt_highlevel.pdf}
-    \caption{Turing Machine diagram.}
-    \label{fig:gol_mt_highlevel}
-\end{figure}
+%\begin{figure}[h]
+%    \centering
+%    \includegraphics[width=1\textwidth]{figs/gol_mt_highlevel.pdf}
+%    \caption{Turing Machine diagram.}
+%    \label{fig:gol_mt_highlevel}
+%\end{figure}
 
 The tape is portrayed with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterise a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
 
@@ -125,14 +125,18 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\textwidth]{figs/gol_mt.pdf}
+    \includegraphics[width=0.3\textwidth]{figs/gol_mt.pdf}
     \caption{Patterns used in the Turing machine.}
     \label{fig:gol_mt}
+    \qquad
+    \includegraphics[width=0.2\textwidth]{figs/gol_mt_highlevel.pdf}
+    \caption{Turing Machine diagram.}
+    \label{fig:gol_mt_highlevel}
 \end{figure}
 
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
-Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represent a line in an bi-dimensional matrix. The head of each tape will represent two possible situations: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell. The head representing the central cell can move to evaluate neighbours cells on the same tape. Hence, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tape to simulate a sweep on the matrix. Moreover, $\delta$ will be transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
+Finally, we want to simulate the Game of Life with Turing Machines. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represent a line in a bi-dimensional matrix. The head of each tape will represent two possible situations: \textbf{(i)} the central cell that will be changed based on neighbours; or \textbf{(ii)} the cells that will be evaluated to change another cell. The head representing the central cell can move to evaluate neighbours cells on the same tape. Hence, we can move the head of each tape and transition between states based on rules of the game. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tape to simulate a sweep on the matrix. Moreover, $\delta$ will be transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
 
 %Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
