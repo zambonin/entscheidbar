@@ -42,11 +42,11 @@ In this work, we present three models of computation and give proof ideas of the
 
 \section{Cellular automata}\label{sec:ca}
 
-In this section, we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a $n$-dimensional cell grid, where each cell can have an assortment of states. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration, called generation in this context, each cell value is updated following a set of rules. These updates modify the state of a cell and, as a result, have a new configuration.
+In this section, we show a Turing-complete cellular automaton. More precisely, a cellular automaton is a discrete model studied in several fields. The model is composed by a $n$-dimensional cell grid, where each cell can have an assortment of states. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration, called generation in this context, each cell value is updated following a set of rules. These updates modify the state of a cell and, as a result, have a new configuration.
 
 \subsection{\emph{Game of Life}}
 
-In 1970, mathematician John Horton Conway created the Game of Life~\cite{Gardner:article:1970:oct}. The game is a cellular automata in a bi-dimensional grid, and each cell show one of two possible states: alive ($1$) or dead ($0$). Moreover, each cell follows a specific set of rules to change between states. Therefore, for an initial configuration, or seed, cells change their state without the necessity of user input.
+In 1970, mathematician John Horton Conway created the Game of Life~\cite{Gardner:article:1970:oct}. The game is a cellular automaton in a bi-dimensional grid, and each cell show one of two possible states: alive ($1$) or dead ($0$). Moreover, each cell follows a specific set of rules to change between states. Therefore, for an initial configuration, or seed, cells change their state without the necessity of user input.
 
 \begin{figure}[h]
     \centering
@@ -68,7 +68,7 @@ Each of the aforementioned rules represents death by under-population, sustainab
 
 \subsubsection{Patterns}
 
-There are several patterns that occur in Game of Life that can be classified based on their behaviour. Still life are patterns which can not be modified between generations. Oscillators are patterns that return to their initial state after a finite number of generations. Spaceships are patterns that translate across the grid. More precisely, glider is a spaceship type pattern, which interacts with other patterns in interesting ways. It is possible to collide gliders, eliminating both from the next generations~\cite{Adamatzky:book:2012}. Figure~\ref{fig:glider_gun} shows another pattern, which generates gliders and propagates them across the grid, appropriately named glider gun.
+There are several patterns that occur in Game of Life (GoL) that can be classified based on their behaviour. Still life are patterns which can not be modified between generations. Oscillators are patterns that return to their initial state after a finite number of generations. Spaceships are patterns that translate across the grid. More precisely, glider is a spaceship type pattern, which interacts with other patterns in interesting ways. It is possible to collide gliders, eliminating both from the next generations~\cite{Adamatzky:book:2012}. Figure~\ref{fig:glider_gun} shows another pattern, which generates gliders and propagates them across the grid, appropriately named glider gun.
 
 \begin{figure}[h]
     \centering
@@ -92,9 +92,9 @@ Rendell~\cite{Rendell:inproc:2011:jul, Rendell:phd:2014:jan} showed how to build
 
 The tape is portrayed with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterise a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
 
-The Signal Detector component collects and distributes output information from the finite state machine to necessary places. The component splits the next state information from the output, and sends to the machine. This information is used by the finite state machine in the next read/write cycle. The information about the next state and the symbol arrival must be synchronised. Information about the symbol value is collected by the pop operation.
+The Signal Detector component collects and distributes output information from the finite state machine to necessary places. The component splits the next state information from the output, and sends it to the machine. This information is used by the finite state machine in the next read/write cycle. The information about the next state and the symbol arrival must be synchronised. Information about the symbol value is collected by the pop operation.
 
-The Turing machine was built with logic gates manually. All memory, stacks, signal and other elements were implemented explicitly with the game. Moreover, word input and initial tape is made, also, explicitly with binary signals ($0$ or $1$). Figure~\ref{fig:gol_mt} shows the Turing machine built with the cellular automata explicitly.
+The Turing machine was built with logic gates manually. All memory, stacks, signal and other elements were implemented explicitly with the game. Moreover, word input and initial tape is made, also, explicitly with binary signals. Figure~\ref{fig:gol_mt} shows the Turing machine built through the cellular automaton. Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing-completeness of the game.
 
 \begin{figure}[h]
     \centering
@@ -103,9 +103,9 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
     \label{fig:gol_mt}
 \end{figure}
 
-Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing-completeness of the game.
+On the other hand, we want to simulate GoL with a Turing machine. To accomplish this objective, we can build a multi-tape Turing machine, where each tape represents a line in a bi-dimensional grid. Recall that a multi-tape Turing machine is equivalent to a single-tape Turing machine~\cite[Theorem 3.13]{Sipser:book:2012}. Consider the computation of a element $c$ on tape $t$. The head of $t$ will move to evaluate neighbours of $c$. Moreover, heads from other tapes will move accordingly to evaluate neighbours from different lines. After the evaluation, we can change the value in $c$. Hence, we can move the head of each tape and transition between states based on rules of the game. Freely moving the head of each tape make possible the change of each cell based on neighbours from the same and different tapes. 
 
-Finally, we want to simulate the Game of Life with a Turing Machine. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represents a line in a bi-dimensional matrix. Consider the computation of a element $c$ on tape $t$. The head of $t$ will move to evaluate neighbours of $c$. Moreover, heads from other tapes will move accordingly to evaluate neighbours from different lines. After the evaluation, we can change the value in $c$. Hence, we can move the head of each tape and transition between states based on rules of the game. Freely moving the head of each tape make possible the change of each cell based on neighbours from the same and different tapes. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tapes to simulate a sweep on the matrix. Moreover, $\delta$ will be the transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
+More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tapes to simulate a sweep on the matrix. Moreover, $\delta$ will be the transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
 
 \subsubsection{Applications}
 
