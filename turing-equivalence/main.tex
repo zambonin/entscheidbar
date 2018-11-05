@@ -42,9 +42,9 @@ In this work, we present three models of computation and give proof ideas of the
 
 \section{Cellular automata}\label{sec:ca}
 
-In this section we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a $n$-dimensional cell grid, where each cell can be $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
+In this section, we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a $n$-dimensional cell grid, where each cell can be $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
 
-\subsection{\textit{Game of Life}}
+\subsection{\emph{Game of Life}}
 
 In 1970, mathematician John Horton Conway created the Game of Life. The game is a cellular automata in a bi-dimensional grid, and each cell show one of two possible states: alive ($1$) or dead ($0$). Moreover, each cell follow a specific set of rules to change between states. Therefore, for an initial configuration (seed), cells change their state without the necessity of user input.
 
@@ -55,33 +55,20 @@ In 1970, mathematician John Horton Conway created the Game of Life. The game is 
     \label{fig:stencil}
 \end{figure}
 
-Figure~\ref{fig:stencil} shows, in a simplified manner, how cell update works. For each cell from a configuration $t$, a computation will be executed to achieve a new state based on the cell neighbours. Therefore, we will have a new configuration $t'$. More precisely, the game uses a discrete time. Hence, on a time $t'$, cells of the grid will have a state based on eight adjacent cells from a time $t$ before $t'$. Moreover, when a cell turns alive or dead on a time $t'$, we can define if that cell survived a new generation (time step). The following rules are used to define the cell state in a configuration $t'$, based on $t$:
+Figure~\ref{fig:stencil} shows, in a simplified manner, how cell update works. For each cell from a configuration $t$, a computation will be executed to achieve a new state based on the cell neighbours. Therefore, we will have a new configuration $t'$. More precisely, the game considers time as a discrete unit. Hence, on a time $t'$, cells of the grid will have a state based on eight adjacent cells from a time $t$ before $t'$. Moreover, when a cell turns alive or dead on a time $t'$, we can define if that cell survived a new generation (time step). The following rules are used to define the cell state in a configuration $t'$, based on $t$:
 
 \begin{itemize}
     \item An alive cell with less than two alive neighbours in $t$ will not survive the next generation ($t'$), becoming a dead cell.
     \item An alive cell with two or three alive neighbours in $t$ will survive the next generation.
     \item An alive cell with more than three neighbours in $t$ will not survive.
-    \item A dead cell with exactly three neighbours in $t$ will become a live cell.
+    \item A dead cell with exactly three neighbours in $t$ will become alive.
 \end{itemize}
-
-%A Figura~\ref{fig:stencil} ilustra, de forma simplificada, o funcionamento do jogo. Para cada célula de uma configuração $t$, será realizada uma computação de novo estado, onde o resultado é influenciado pelos vizinhos adjacentes da célula respectiva. Desta forma, teremos uma configuração $t'$ resultante. Mais precisamente, o jogo utiliza um tempo discreto. Em um tempo $t'$, a célula apresenta um estado que depende de outras oito células adjacentes em um tempo $t$ imediatamente anterior. Desta forma, cada célula da matriz é atualizada pela sua configuração anterior. Quando uma célula se torna viva ou morta em um tempo $t'$, pode-se determinar se ela sobreviveu ou não por mais uma geração (\textit{time step}), respectivamente. As seguintes regras são utilizadas para determinar o estado de uma célula em uma configuração $t'$, dependendo de $t$:
-
-%\begin{itemize}
-%    \item Uma célula viva com menos de dois vizinhos vivos em $t$, não conseguirá sobreviver na próxima geração ($t'$), tornando-se uma célula morta.
-%    \item Uma célula viva com dois ou três vizinhos vivos em $t$ sobreviverá na próxima geração.
-%    \item Uma célula viva com mais de três vizinhos vivos em $t$ não sobreviverá.
-%    \item Uma célula morta com, exatamente, três vizinhos em $t$ se tornará viva.
-%\end{itemize}
 
 Each of the aforementioned rules represents death by under-population, sustainable life, death by over-population and birth, respectively. Therefore, these rules represent the process of life and death.
 
-%Pode-se perceber que cada regra representa um processo de vida ou morte. Cada regra representa morte por população baixa, vida sustentável, morte por população alta e nascimento, respectivamente. 
-
 \subsubsection{Patterns}
 
-There are several patterns that occur in Game of Life that can be classified based on their behaviour. \textbf{(i) still life:} are patterns which can not be modified between generations; \textbf{(ii) oscillators:} are patterns that return to their initial state after a finite number of generations and \textbf{(iii) spaceships:} are patterns that translate across the grid. More precisely, glider is a spaceship type pattern, which interacts with other patterns in interesting ways. It is possible to collide gliders, eliminating both gliders from all next generations~\cite{Adamatzky:book:2012}. Moreover, Figure~\ref{fig:glider_gun} shows another pattern, which generates gliders and propagate them across the grid, named glider gun.
-
-%Existem diversos padrões que ocorrem no \textit{Game of Life} que podem ser classificados de acordo com o seu comportamento em: \textbf{(i) \textit{still life}:} são padrões que não são modificados entre gerações; \textbf{(ii) \textit{oscillators}:} são padrões que retornam ao seu estado inicial após um número finito de gerações e \textbf{(iii) \textit{spaceships}:} são padrões que percorrem a matriz. Mais precisamente, \textit{spaceships} apresentam o padrão \textit{glider}. Esse padrão é muito importante, pois ele pode interagir com outros padrões, criando gerações posteriores interessantes. Desta forma, é possível, por exemplo, colidir \textit{gliders}. Essa colisão elimina ambos os \textit{gliders} de próximas gerações. Além disso, a Figura~\ref{fig:glider_gun} ilustra outro padrão, denominado \textit{glider gun}, onde, em um período definido, são gerados e propagados \textit{gliders} pela matriz.
+There are several patterns that occur in Game of Life that can be classified based on their behaviour. Still life are patterns which can not be modified between generations. Oscillators are patterns that return to their initial state after a finite number of generations. Spaceships are patterns that translate across the grid. More precisely, glider is a spaceship type pattern, which interacts with other patterns in interesting ways. It is possible to collide gliders, eliminating both gliders from all next generations~\cite{Adamatzky:book:2012}. Moreover, Figure~\ref{fig:glider_gun} shows another pattern, which generates gliders and propagate them across the grid, named glider gun.
 
 \begin{figure}[h]
     \centering
@@ -90,15 +77,11 @@ There are several patterns that occur in Game of Life that can be classified bas
     \label{fig:glider_gun}
 \end{figure}
 
-Gliders and glider guns are patterns used to build logic ports (\texttt{AND}, \texttt{OR} e \texttt{NOT}) and memory counters. Moreover, glider gun pattern which can produce live cells without boundaries. This characteristic is interesting to computability due to the fact that a computational model is not Turing complete, if it always stops. Hence, this property imply, theoretically, that GoL is Turing complete.
-
-%\textit{Gliders} e \textit{glider guns} são padrões utilizados para construir portas lógicas (\texttt{AND}, \texttt{OR} e \texttt{NOT}) e, até mesmo, contadores de memória. Além disso, o padrão \textit{glider gun} é um exemplo de padrão, onde células vivas podem ser criadas sem limites. Essa característica é interessante para a computabilidade, pois se um modelo computacional sempre para, não é possível que ele seja Turing completo. Portanto, essas propriedades implicam, teoricamente, que o GoL é Turing completo.
+Gliders and glider guns are patterns used to build logic ports, such as \texttt{AND}, \texttt{OR} and \texttt{NOT}, and memory counters. Moreover, glider gun pattern which can produce live cells without boundaries. This characteristic is interesting to computability due to the fact that a computational model is not Turing complete, if it always stops. Hence, this property implies, theoretically, that GoL is Turing complete.
 
 \subsubsection{Building a Turing Machine}
 
 Rendell~\cite{Rendell:inproc:2011:jul, Rendell:phd:2014:jan} showed how to build a Turing machine with Game of Life patterns. Figure~\ref{fig:gol_mt_highlevel} illustrates the Turing machine diagram built with the game. The machine has a finite state machine with stacks to represent the states and tape, respectively. More precisely, the machine has two address mechanisms, one for states and other for symbol value. Moreover, the machine has nine memory cells. Each cell stores information about actions that can be taken for each combination between state and symbol.
-
-%Rendall~\cite{rendall} mostrou que é possível construir uma Máquina de Turing com padrões do \textit{Game of Life}. A Figura~\ref{fig:gol_mt_highlevel} ilustra o diagrama da Máquina de Turing construída com o jogo. O diagrama possui um autômato finito e pilhas para representar os estados da máquina e a fita, respectivamente. Mais precisamente, o autômato finito possui dois mecanismos de endereçamento, um para os estados da máquina e outro para o símbolo atual. Além disso, a máquina de estados finito possui nove células de memória. As células são responsáveis por guardar informações sobre as ações que devem ser realizadas em cada combinação entre estado e símbolo.
 
 \begin{figure}[h]
     \centering
@@ -109,15 +92,9 @@ Rendell~\cite{Rendell:inproc:2011:jul, Rendell:phd:2014:jan} showed how to build
 
 The tape is portrayed with two stacks. In each cycle, stacks perform a push or pop operation simultaneously. More precisely, these operations allow tape movement. For example, if the right stack performs a pop operation, the element removed will be redirected to the finite state machine. The machine will compute and produce an output. On the other hand, the left stack will perform a push operation with the output from the finite state machine. These operations characterise a right movement on the tape. The left movement can be achieved with the same process. Finally, all the signal and stack control are made by the Stack Control component.
 
-%A fita de uma Máquina de Turing é representada por duas pilhas. Em cada ciclo, as pilhas realizam uma operação de \textit{push} ou \textit{pop} simultaneamente. Mais precisamente, ao realizar essas operações é possível percorrer a fita. Por exemplo, se a pilha da direita realizar a operação \textit{pop}, o elemento retirado será redirecionado para a máquina de estados finita. A máquina irá computar e gerar um \textit{output}. Desta forma, a pilha da esquerda efetuará a operação \textit{push} do \textit{output} do autômato, caracterizando uma leitura da fita à direita. Por sua vez, a leitura à esquerda é realizada de forma similar. Por fim, todo o controle dos sinais e da pilha é feito pelo componente \textit{Stack Control}.
-
 The Signal Detector component collects and distributes output information from the finite state machine to necessary places. The component splits the next state information from the output, and sends to the machine. This information is used by the finite state machine in the next read/write cycle. The information about the next state and the symbol arrival must be synchronised. Information about the symbol value is collected by the pop operation.
 
-%O componente \textit{Signal Detector} coleta e distribui a informação de \textit{output} da máquina de estados finita para os locais necessários. O componente separa a informação sobre o próximo estado do \textit{output},  e envia para a máquina. Essa informação é utilizada pela máquina de estados finita no próximo ciclo de leitura/escrita em sincronia com o símbolo que é coletado pela operação de \textit{pop}.
-
 The Turing machine was built with logic gates manually. All memory, stacks, signal and other elements were implemented explicitly with the game. Moreover, word input and initial tape is made, also, explicitly with binary signals ($0$ or $1$). Figure~\ref{fig:gol_mt} shows the Turing machine built with the cellular automata explicitly.
-
-%A Máquina de Turing foi construída com portas lógicas de forma manual. Todas as memórias, pilhas, sinais, entre outros elementos utilizados foram desenvolvidos de forma explícita com o jogo. Desta forma, a entrada de uma palavra e fita inicial é realizada, também, de forma manual com sinais binários ($0$ ou $1$). A Figura~\ref{fig:gol_mt} ilustra a Máquina de Turing construída com o autômato celular de forma explícita.
 
 \begin{figure}[h]
     \centering
@@ -129,8 +106,6 @@ The Turing machine was built with logic gates manually. All memory, stacks, sign
 Therefore, we can simulate a Turing machine with Game of Life, characterising the Turing completeness of the game.
 
 Finally, we want to simulate the Game of Life with a Turing Machine. To accomplish this objective, we can build a multi-tape Turing Machine, where each tape represents a line in a bi-dimensional matrix. Consider the computation of a element $c$ on tape $t$. The head of $t$ will move to evaluate neighbours of $c$. Moreover, heads from other tapes will move accordingly to evaluate neighbours from different lines. After the evaluation, we can change the value in $c$. Hence, we can move the head of each tape and transition between states based on rules of the game. Freely moving the head of each tape make possible the change of each cell based on neighbours from the same and different tapes. More precisely, we can define a 7-tuple M = ($Q$, $\Gamma$, $\Sigma$, $\delta$, $q_0$, $B$, $F$), whose Q is a finite, non-empty set of states; $\Gamma$ is a finite, non-empty tape alphabet; $\Sigma \in {0,1}$ and $\Sigma \subset \Gamma$; $B \in \Gamma$ is the blank symbol; $q_0 \in Q$ is the initial state and $F \subseteq Q$ is a set of accepting states. Tapes will have an initial configuration with values from the alphabet. The heads will move across the tapes to simulate a sweep on the matrix. Moreover, $\delta$ will be the transactions based on the rules of the game. Therefore, we can simulate GoL with a Turing Machine.
-
-%Portanto, pode-se simular uma Máquina de Turing com o \textit{Game of Life}, caracterizando a Turing completude do jogo.
 
 \subsubsection{Applications}
 
