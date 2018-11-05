@@ -42,15 +42,11 @@ In this work, we present three models of computation and give proof ideas of the
 
 \section{Cellular automata}\label{sec:ca}
 
-In this section we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a cell grid (\texttt{1D}, \texttt{2D} e \texttt{3D}) and each cell can be: $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
-
-%Nesta seção apresentaremos dois autômatos celulares que são Turing completos. Mais precisamente, um autômato celular é um modelo discreto muito estudado em várias áreas. O modelo consiste de uma matriz de células (\texttt{1D}, \texttt{2D} e \texttt{3D}), onde cada célula da matriz apresenta apenas dois valores: $0$ ou $1$. Para cada célula, temos um conjunto de vizinhos que são definidos pelas suas células adjacentes. A configuração inicial do autômato é criada atribuindo valores para cada célula da matriz. Em cada configuração posterior (geração), o valor de cada célula da matriz é atualizado seguindo um conjunto de regras, caracterizando uma modificação no estado da célula.
+In this section we show a Turing-complete cellular automata. More precisely, a cellular automata is a discrete model studied in several fields. The model is composed by a $n$-dimensional cell grid, where each cell can be $0$ or $1$. For each cell, we have a set of neighbours defined by adjacent cells, and a value to characterise the initial configuration. In each next configuration (generation), each cell value is updated following a set of rules. These updates modify the state of a cell and have, as a result, a new configuration.
 
 \subsection{\textit{Game of Life}}
 
-In 1970, mathematician John Horton Conway created the Game of Life. The game is a cellular automata in a bi-dimensional grid, and each cell show one of two possible states: alive($1$) or dead($0$). Moreover, each cell follow a specific set of rules to change between states. Therefore, for an initial configuration (seed), cells change their state without the necessity of user input.
-
-%Em 1970, o matemático John Horton Conway inventou o jogo \textit{Game of life}. Mais precisamente, o jogo é um autômato celular em uma matriz bidimensional, onde células apresentam dois estados: vivo ($1$) e morto ($0$). Cada célula segue um conjunto de regras para mudar de estado, de acordo com os vizinhos. Desta forma, dado uma configuração inicial, denominada de \textit{seed}, as células mudam de estado sem a necessidade de outras entradas pelo usuário.
+In 1970, mathematician John Horton Conway created the Game of Life. The game is a cellular automata in a bi-dimensional grid, and each cell show one of two possible states: alive ($1$) or dead ($0$). Moreover, each cell follow a specific set of rules to change between states. Therefore, for an initial configuration (seed), cells change their state without the necessity of user input.
 
 \begin{figure}[h]
     \centering
