@@ -54,7 +54,7 @@ The main characteristics of SPH lie in their limited syntax and arithmetic opera
 
 Note that there is only one method of looping, that is, recursive. This is exactly what the \texttt{CALL} command achieves. As such, to execute programs of this language, it is imperative to maintain a recursion stack and ``program counters''. Moreover, all ``memory'' is not preserved between recursion calls, except for the last register. \texttt{R1} to \texttt{R8} can be seen as scratchpad registers. We present below an example of source code for SPH and execute it step-by-step. Note that syntactic limitations such as delimitation of conditional branches and uppercase enforcement is not discussed. The first line informs that the program has $8$ lines and that its first input is $9$.
 
-{\scriptsize
+{\footnotesize
 \begin{verbatim}
 8 9
 IFEQ R0,0
@@ -67,7 +67,9 @@ MUL R9,2
 RET R9
 \end{verbatim}}
 
-We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning $1$ if so. This is the stop condition of the recursive loop. Then, we copy \texttt{R0} to \texttt{R1}, and decrement \texttt{R1}. We save the ``memory'' state and start a new execution of the program with $\texttt{R1} = 8$ as \texttt{R0}. This is repeated until the stopping condition is reached, and thus, the recursion stack has nine entries. When \texttt{RET 1} is executed, $\texttt{R9} = 1$ and the ``program counter'' moves to the \texttt{MUL
+We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning $1$ if so. This is the stop condition of the recursive loop. Then, we copy \texttt{R0} to \texttt{R1}, and decrement \texttt{R1}. We save the ``memory'' state and start a new execution of the program with $\texttt{R1} = 8$ as \texttt{R0}. This is repeated until the stopping condition is reached, and thus, the recursion stack has nine entries. When \texttt{RET 1} is executed, $\texttt{R9} = 1$ and the ``program counter'' moves to the \texttt{MUL} instruction, since it is directly after \texttt{CALL}. \texttt{R9} is doubled and returned, once again to the line below \texttt{CALL}, since it was the origin of the recursion. 
+
+We can see that this is repeated as long as there are entries in the stack. Since the stopping condition returns $1$ and it is doubled repeatedly, the point of this program is to recursively calculate the $n$-th power of $2$, where $n$ is the recursion depth and, indeed, the input of the program.
 
 \section{Implementation}\label{sec:imp}
 
