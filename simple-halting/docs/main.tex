@@ -48,7 +48,7 @@
 
 \section{Simplified Halting Problem}\label{sec:halting}
 
-It is known that there exists no procedure which can determine if any program halts or not, as seen above. However, there exist deciders that can know if strings belong to a certain formal language. This is exactly the set of recursive languages. For instance, every context-free language is decidable~\cite[Theorem 4.9]{Sipser:book:2012}. Many other examples of languages that always halt exist. Such is the case of what we call the Simplified Halting Problem (SPH), described by Demasi~\cite{Demasi:misc:2013:may} in an assembly-like format. We briefly cover its details and prove that it is decidable after.
+It is known that there exists no procedure which can determine if any program halts or not, as seen above. However, there exist deciders that can know if strings belong to a certain formal language. This is exactly the set of recursive languages. For instance, every context-free language is decidable~\cite[Theorem 4.9]{Sipser:book:2012}. Many other examples of languages that always halt exist. Such is the case of what we call the Simplified Halting Problem (SHP), described by Demasi~\cite{Demasi:misc:2013:may} in an assembly-like format. We briefly cover its details and prove that it is decidable after.
 
 The main characteristics of SPH lie in their limited syntax and arithmetic operations. Commands are divided into three groups: (i) usual conditional branches that compare two integers and a copy operation; (ii) arithmetic calculations modulo $1000$, with the additional restriction that dividing and taking the modulo of zero is equal to zero itself; (iii) looping constructs in the form of a \texttt{CALL} command, and program return \texttt{RET}, that accept one argument. Further, there are ten registers that compose the ``memory'', where \texttt{R0} and \texttt{R9} receive input and place the output from the third group of commands, respectively.
 
@@ -71,9 +71,11 @@ We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning $
 
 We can see that this is repeated as long as there are entries in the stack. Since the stopping condition returns $1$ and it is doubled repeatedly, the point of this program is to recursively calculate the $n$-th power of $2$, where $n$ is the recursion depth and, indeed, the input of the program.
 
+% TODO proof of decidability
+
 \section{Implementation}\label{sec:imp}
 
-The full source code for the SPH language parsing and execution unit can be read in Appendix~\ref{app:impl}. We shortly discuss it in the sequence. Data structures were carefully chosen to prevent data access overhead. As such, unordered maps and sets are heavily featured, since their underlying STL implementation is a red-black tree. Additionally, hashing functions were created, to enable insertion of custom structures into these containers. 
+The full source code for the SHP language parsing and execution unit can be read in Appendix~\ref{app:impl}, stripped of comments for brevity. We shortly discuss it in the sequence. Data structures were carefully chosen to prevent data access overhead. As such, unordered maps and sets are heavily featured, since their underlying STL implementation is a red-black tree. Additionally, hashing functions were created, to enable insertion of custom structures into these containers. 
 
 We parse the input with regular expression rules created from the description of the problem~\cite{Demasi:misc:2013:may} and check for any syntax errors. We must note that, while the program description says that arithmetic is limited to modular arithmetic modulo $1000$, there exists a wrong input program that features exactly this number. Hence, the program has a workaround to accept this variable. Further, the input value limit of $100$ is also not respected --- we believe it is a typo and should be $0 \leq n < 1000$. Helper functions that translate values from the ``memory'' and parse each program line into a valid ``instruction'' are given shortly below.
 
@@ -92,7 +94,7 @@ Using simpler string structures, manual translation of strings to integers, and 
 
 \appendix
 
-\section{C++ implementation of Simplified Halting Problem}\label{app:impl}
+\section{C++ implementation of SHP}\label{app:impl}
 \lstinputlisting[language=C++]{halting.cpp}
 
 \end{document}
