@@ -1,0 +1,67 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks]{hyperref}
+\usepackage{amssymb, amsmath, algorithm, algorithmic, color, listings}
+
+\definecolor{codegreen}{rgb}{0, 0.6, 0}
+\definecolor{codegray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{codepurple}{rgb}{0.58, 0, 0.82}
+
+\lstset{
+  basicstyle=\tiny\ttfamily,
+  breaklines=true,
+  commentstyle=\color{codegreen},
+  extendedchars=true,
+  keywordstyle=\color{blue},
+  numbers=left,
+  numberstyle=\tiny\color{codegray},
+  showstringspaces=false,
+  stringstyle=\color{codepurple}
+}
+
+\sloppy
+
+\renewcommand{\algorithmiccomment}[1]{\hfill $\triangleright$ #1}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\title{Solution to a Simplified Halting Problem\footnote{
+    As submitted to the INE410113 class (Theory of Computation). \href{https://github.com/zambonin/ine410113}{Source code}.}}
+
+\author{Douglas Martins\inst{1}, Emmanuel Podestá Jr.\inst{1}, Gustavo Zambonin\inst{1}}
+
+\address{Departamento de Informática e Estatística, Universidade Federal de Santa Catarina \\
+  88040-900, Florianópolis, Brazil
+  \email{\{marcelino.douglas,emmanuel.podesta,gustavo.zambonin\}@posgrad.ufsc.br}
+}
+
+\begin{document} 
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+
+\section{The halting problem}\label{sec:halting}
+
+\section{Implementation}\label{sec:imp}
+
+
+
+% The full source code for the parser can be read in Appendix~\ref{app:impl}. We briefly discuss it in the sequence. Heavy usage of unordered containers is applied, since there is no time access overhead, that is, $\mathcal{O}(1)$ element look-ups. Further, we create customized hashing functions to allow insertion of complex objects into these structures. We parse the input with regular expression rules created from the variables and terminals sets. After, there are two helper functions that return, respectively, all rules that generate a pair of symbols, and the Cartesian product of two character sets. Note that we pair any terminals with a special character $\#$ --- this way, only one function needs to be created. 
+
+% In Lines 115--144, the main function is defined. It is very similar to Algorithm~\ref{alg:cyk}, featuring only two differences in the form of optimizations: early exit if any element in the diagonal is an empty set, and memoization of rules produced by a pair of characters. With these, we need not populate the matrix if any letter of $w$ is not produced by $G$, and repeated computations are prevented in the frequent case of equal character pairs. Subsequently, a wrapper function is responsible for aggregating all possible inputs of a grammar and its results, avoiding repeated computations if there are two or more equal input words. A pretty-print function is defined shortly after. Finally, in the last function, memoization of the entire grammar and its results is employed to prevent repeated cases, once again. The main obstacles were based around how to structure a grammar to allow easy iteration and comparison of rules, as well as inserting complex structures into unordered containers. Still, the program is relatively optimized, running in less than 30 ms.
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\appendix
+
+\section{C++ implementation of Simplified Halting Problem}\label{app:impl}
+\lstinputlisting[language=C++]{halting.cpp}
+
+\end{document}
