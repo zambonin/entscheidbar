@@ -69,9 +69,9 @@ RET R9
 
 We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning $1$ if so. This is the stop condition of the recursive loop. Then, we copy \texttt{R0} to \texttt{R1}, and decrement \texttt{R1}. We save the ``memory'' state and start a new execution of the program with $\texttt{R1} = 8$ as \texttt{R0}. This is repeated until the stopping condition is reached, and thus, the recursion stack has nine entries. When \texttt{RET 1} is executed, $\texttt{R9} = 1$ and the ``program counter'' moves to the \texttt{MUL} instruction, since it is directly after \texttt{CALL}. \texttt{R9} is doubled and returned, once again to the line below \texttt{CALL}, since it was the origin of the recursion. 
 
-We can see that this is repeated as long as there are entries in the stack. Since the stopping condition returns $1$ and it is doubled repeatedly, the point of this program is to recursively calculate the $n$-th power of $2$, where $n$ is the recursion depth and, indeed, the input of the program.
+We can see that this is repeated as long as there are entries in the stack. Since the stopping condition returns $1$ and that is doubled repeatedly, the point of this program is to recursively calculate the $n$-th power of $2$, where $n$ is the recursion depth and, indeed, the input of the program.
 
-% TODO proof of decidability
+Now, we turn to the question on whether SHP is decidable. 
 
 \section{Implementation}\label{sec:imp}
 
