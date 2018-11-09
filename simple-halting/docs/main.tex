@@ -46,11 +46,15 @@
 
 \section{Introduction}\label{sec:intro}
 
-\section{The halting problem}\label{sec:halting}
+\section{Simplified Halting Problem}\label{sec:halting}
 
 \section{Implementation}\label{sec:imp}
 
-The full source code for the language parsing and execution unit can be read in Appendix~\ref{app:impl}. We shortly discuss it in the sequence. Data structures were carefully chosen to prevent data access overhead. As such, unordered maps and sets are heavily featured, since their underlying STL implementation is a red-black tree. Additionally, hashing functions were created, to enable insertion of custom structures into these containers. We parse the input with regular expression rules created from the description of the problem~\cite{} and check for any syntax errors. We must note that, while the program description says that arithmetic is limited to modular arithmetic modulo $1000$ 
+The full source code for the language parsing and execution unit can be read in Appendix~\ref{app:impl}. We shortly discuss it in the sequence. Data structures were carefully chosen to prevent data access overhead. As such, unordered maps and sets are heavily featured, since their underlying STL implementation is a red-black tree. Additionally, hashing functions were created, to enable insertion of custom structures into these containers. 
+
+We parse the input with regular expression rules created from the description of the problem~\cite{} and check for any syntax errors. We must note that, while the program description says that arithmetic is limited to modular arithmetic modulo $1000$, there exists a wrong input program that features exactly this number. Hence, the program has a workaround to accept this variable. Helper functions that translate values from the ``memory'' and parse each program line into a valid ``instruction'' are given shortly below.
+
+Lines 113--158 present the main function of the program, that which loops
 
 % The full source code for the parser can be read in Appendix~\ref{app:impl}. We briefly discuss it in the sequence. Heavy usage of unordered containers is applied, since there is no time access overhead, that is, $\mathcal{O}(1)$ element look-ups. Further, we create customized hashing functions to allow insertion of complex objects into these structures. We parse the input with regular expression rules created from the variables and terminals sets. After, there are two helper functions that return, respectively, all rules that generate a pair of symbols, and the Cartesian product of two character sets. Note that we pair any terminals with a special character $\#$ --- this way, only one function needs to be created. 
 
