@@ -50,7 +50,7 @@ The halting problem is a well known problem in computability theory. In 1936, Al
 
 We can not build a machine $H$, hence $Halt_{TM}$ is undecidable. More precisely, the proof is as follows. Suppose that machine $H$ exists and decides $Halt_{TM}$. Now we introduce a new machine $B$ that takes $M$ and runs $H$ with $<M, <M>>$, and halts if and only if $H$ rejects. Moreover, consider that $B$ receives as input $<B>$, and will run $H$ with $<B, <B>>$. This scenario has two outcomes: \textbf{(i)} If $H$ accepts, then $B$ halts on input $<B>$. However, by definition, $B$ will enter in loop if $H$ accepts. Hence, $B$ on input $<B>$ does not halt; and \textbf{(ii)} If $H$ rejects, then $B$ does not halt on input $<B>$. However, by definition, $B$ will terminate if $H$ rejects. Hence, $B$ halts on input $<B>$. Therefore, the halting problem is undecidable.
 
-As an alternative, we can use reduction to prove that a problem is undecidable. More precisely, a problem $A$ is reducible to $B$ if $B$ can be used to solve $A$.
+As an alternative, we can use reduction to prove that a problem is undecidable. More precisely, a problem $A$ is reducible to $B$ if $B$ can be used to solve $A$. Hence, if $A$ is undicidable, is enough to show that a solution in $B$ can be used to decide $A$, unveiling a 
 
 \section{Simplified Halting Problem}\label{sec:halting}
 
