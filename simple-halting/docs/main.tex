@@ -79,7 +79,10 @@ We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning $
 
 We can see that this is repeated as long as there are entries in the stack. Since the stopping condition returns $1$ and that is doubled repeatedly, the point of this program is to recursively calculate the $n$-th power of $2$, where $n$ is the recursion depth and, indeed, the input of the program.
 
-Now, we turn to the question on whether SHP is decidable. Evidently, the language has a finite number of configurations, due to its limited arithmetic and memory bank. This is independent of the instruction that modified the program state, since a given configuration can be reached from different lines. 
+Now, we turn to the question on whether SHP is decidable. Evidently, the language has a finite number of configurations, due to its limited arithmetic and memory bank. This is independent of the instruction that modified the program state, since a given configuration can be reached from different lines. By this reasoning, it is enough to check that the number of lines executed is greater than the number of possible configurations. This is akin to say that the language is as powerful as a linear bounded automaton.
+
+This strategy, albeit correct, will not yield the necessary performance on simple programs such as \texttt{CALL R0; RET R0}. The state for this program actually never changes, and still, to identify its non-halting behaviour, one would have to go through all the possible program configurations. Still, we know that all stages have to appear at most one time 
+
 
 % However, a simple program such as \texttt{CALL R0; RET R0} would not be correctly identified as an infinite loop if only these behaviours are taken into account. Hence, one must also pay attention to the recursion states for the program. 
 
