@@ -60,7 +60,7 @@ It is known that there exists no algorithm which can determine if any program ha
 
 The main characteristics of SHP lie in their limited syntax and arithmetic operations. Commands are divided into three groups: (i) usual conditional branches that compare two integers and a copy operation; (ii) arithmetic calculations modulo $1000$, with the additional restriction that dividing and taking the modulo of zero is equal to zero itself; (iii) looping constructs in the form of a \texttt{CALL} command, and program return \texttt{RET}, that accept one argument. Further, there are ten registers that compose the ``memory'', where \texttt{R0} and \texttt{R9} receive input and place the output from the third group of commands, respectively. Finally, programs have an upper bound of a thousand lines.
 
-Note that there is only one method of looping, that is, recursive. This is exactly what the \texttt{CALL} command achieves. As such, to execute programs of this language, it is imperative to maintain a recursion stack and ``program counters''. Moreover, all ``memory'' is not preserved between recursion calls, except for the last register. \texttt{R1} to \texttt{R8} can be seen as scratchpad registers. We present below an example of source code for SPH and execute it step-by-step. Note that syntactic limitations such as delimitation of conditional branches and uppercase enforcement is not discussed. The first line informs that the program has $8$ lines and that its first input is $9$.
+Note that there is only one method of looping, that is, recursive. This is exactly what the \texttt{CALL} command achieves. As such, to execute programs of this language, it is imperative to maintain a recursion stack and ``program counters''. Moreover, all ``memory'' is not preserved between recursion calls, except for the last register. \texttt{R1} to \texttt{R8} can be seen as scratchpad registers. We present below an example of source code for SHP and execute it step-by-step. Note that syntactic limitations such as delimitation of conditional branches and uppercase enforcement is not discussed. The first line informs that the program has $8$ lines and that its first input is $9$.
 
 {\footnotesize
 \begin{verbatim}
@@ -83,7 +83,7 @@ Now, we turn to the question on whether SHP is decidable. Evidently, the languag
 
 This strategy, albeit correct, will not yield the necessary performance on simple programs such as \texttt{CALL R0; RET R0}. The state for this program actually never changes, and still, to identify its non-halting behaviour, one would have to go through all the possible program configurations. However, note that if a configuration is reached more than once, this configures an infinite loop. That is, a state that leads to itself will never exit this connection. The pigeonhole principle is the formalisation of this notion. 
 
-Identifying state repetitions is a simpler approach, since it needs not to look at all the possible states for a program. Since a program cannot have more than $1000$ lines, the only instruction that can alter this behaviour is \texttt{CALL}.
+Identifying state repetitions is a simpler approach, since it needs not to look at all the possible states for a program. Since a program cannot have more than $1000$ lines, the only instruction that can alter this behaviour semantically is \texttt{CALL}, by means of its looping capabilities. 
 
 \section{Implementation}\label{sec:imp}
 
