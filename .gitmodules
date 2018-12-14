@@ -1,0 +1,3 @@
+[submodule "sbc"]
+	path = sbc
+	url = git@github.com:zambonin/sbc.git
