@@ -38,7 +38,7 @@
 
 \address{Departamento de Informática e Estatística, Universidade Federal de
     Santa Catarina \\
-  88040-900, Florianópolis, Brazil
+  88040-900, Florianópolis, Brazil % chktex-file 8
   \email{\{marcelino.douglas,gustavo.zambonin\}@posgrad.ufsc.br}
 }
 
@@ -112,8 +112,8 @@ the language.
       \COMMENT{Boolean value that represents whether $w \in G$}
     \STATE{} $n \leftarrow |w|$
       \COMMENT{size of $w$}
-    \STATE{} $d \leftarrow [\{\}_{0}^{0}, \dots, \{\}_{n - 1}^{0},
-      \{\}_{0}^{1}, \dots, \{\}_{n - 1}^{n - 1}]$
+    \STATE{} $d \leftarrow [{\{\}}_{0}^{0}, \dots, {\{\}}_{n - 1}^{0},
+      {\{\}}_{0}^{1}, \dots, {\{\}}_{n - 1}^{n - 1}]$
       \COMMENT{square $n \times n$ matrix of empty sets}
     \FOR{$i \leftarrow 0, \dots, n - 1$}
       \IF{$(A \rightarrow w[i]) \in G.R$}

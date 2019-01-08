@@ -39,7 +39,7 @@
 
 \address{Departamento de Informática e Estatística, Universidade Federal de
     Santa Catarina \\
-  88040-900, Florianópolis, Brazil
+  88040-900, Florianópolis, Brazil % chktex-file 8
   \email{\{marcelino.douglas,emmanuel.podesta,gustavo.zambonin\}@posgrad.ufsc.br}
 }
 
@@ -133,7 +133,8 @@ SUB R1,1
 CALL R1
 MUL R9,2
 RET R9
-\end{verbatim}}
+\end{verbatim}
+}
 
 We will start by comparing equality of $\texttt{R0} = 9$ and $0$ and returning
 $1$ if so. This is the stop condition of the recursive loop. Then, we copy
@@ -175,7 +176,7 @@ happen when two configurations are equal, exactly when those instructions are
 executed. Thus, it is only necessary to check for situations of this case.
 
 With this information in mind, we need only to define what is such a
-configuration in the context of SHP. Recall that no additional information on
+configuration in the context of SHP\@. Recall that no additional information on
 the depth level or line number is needed. Then, we define the ``memory state'',
 that is, the sequence of registers \texttt{R0} to \texttt{R9}, as the
 configuration. By means of checking if a ``memory state'' has already occurred

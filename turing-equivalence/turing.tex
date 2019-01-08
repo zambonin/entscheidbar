@@ -18,7 +18,7 @@
 \address{
   Departamento de Informática e Estatística, Universidade Federal de Santa
     Catarina \\
-  88040-900, Florianópolis, Brazil
+  88040-900, Florianópolis, Brazil % chktex-file 8
   \email{\{marcelino.douglas,emmanuel.podesta,gustavo.zambonin\}@posgrad.ufsc.br}
 }
 
@@ -118,8 +118,7 @@ their state without the necessity of user input.
 \begin{figure}[h]
     \centering
     \includegraphics{images/stencil.pdf}
-    \caption{Simplified cell state update.}
-    \label{fig:stencil}
+    \caption{Simplified cell state update.}\label{fig:stencil}
 \end{figure}
 
 Figure~\ref{fig:stencil} shows, in a simplified manner, how cell updates work.
@@ -161,8 +160,7 @@ appropriately named glider gun.
     \centering
     \includegraphics[scale=0.9]{images/glider-gun.pdf}
     \caption{Glider gun (upper rectangle) producing gliders (bottom
-        rectangle).}
-    \label{fig:glider_gun}
+        rectangle).}\label{fig:glider_gun}
 \end{figure}
 
 Gliders and glider guns are patterns used to build logic ports, such as
@@ -185,8 +183,7 @@ taken for each combination between state and symbol.
     \centering
     \includegraphics[width=0.75\textwidth]{images/gol-tm-high.pdf}
     \caption{Turing machine diagram. Original image by
-        Rendell~\cite{Rendell:inproc:2011:jul}.}
-    \label{fig:gol_mt_highlevel}
+        Rendell~\cite{Rendell:inproc:2011:jul}.}\label{fig:gol_mt_highlevel}
 \end{figure}
 
 The tape is portrayed with two stacks. In each cycle, stacks perform a push or
@@ -218,8 +215,7 @@ characterising the Turing-completeness of the game.
     \centering
     \includegraphics[width=0.6\textwidth]{images/gol-tm.pdf}
     \caption{Patterns used in the Turing machine. Original image by
-        Rendell~\cite{Rendell:inproc:2011:jul}.}
-    \label{fig:gol_mt}
+        Rendell~\cite{Rendell:inproc:2011:jul}.}\label{fig:gol_mt}
 \end{figure}
 
 On the other hand, we want to simulate GoL with a Turing machine. To accomplish
@@ -266,7 +262,7 @@ or alter behaviour in specific ways, the notions of terminals, non-terminals,
 productions and other intricacies are enforced. Thus, it is a common example of
 a string rewriting system (SRS) in formal language theory.
 
-Let us formally define a SRS. This definition is taken from Book and
+Let us formally define a SRS\@. This definition is taken from Book and
 Otto~\cite[Sec. 2.1]{Book:book:1993}. Consider $\Sigma$ to be a finite set of
 symbols, that is to say, an alphabet, and a binary relation $R \subseteq
 \Sigma^{*} \times \Sigma^{*}$. A string rewriting system is a $2$-tuple $S =
@@ -293,7 +289,7 @@ equivalent definitions.
 For the first step, a possible proof strategy is based on showing that a
 general SRS is a recursively enumerable (r.e.) language, that is,
 Turing-recognizable. Indeed, it is a formal language. Then, one must prove that
-a SRS generates a set of outputs that is a r.e. subset of the set of all
+a SRS generates a set of outputs that is a r.e.\ subset of the set of all
 possible words over its alphabet. This means that there exists an algorithm
 which enumerates the members of that subset. Equivalently, there exists a
 Turing machine that will enumerate all valid strings of the
@@ -340,7 +336,7 @@ halting problem.
 A more tangible example is given by Hamel~\cite{Hamel:misc:2016:sep}.
 Informally, consider a Turing machine in which its tape is divided in three
 parts, marked with special symbols. The first part holds the input string, and
-the second part contains the rules for the SRS. The third part is initially
+the second part contains the rules for the SRS\@. The third part is initially
 empty and serves as a scratchpad for eventual partial computations. To process
 the input, the machine should try to match the leftmost symbols of the input
 string with the left sides of rules in the second tape, and substitute them as
@@ -544,7 +540,7 @@ other concepts.
 With these definitions in mind, we may look at how the question of Hilbert was
 solved. First, note that all Diophantine sets are recursively enumerable, since
 a Turing machine can enumerate all possible pairs of variables and unknowns and
-then test if they are valid solutions to a equation. However, are all r.e. sets
+then test if they are valid solutions to a equation. However, are all r.e.\ sets
 also Diophantine, that is, can a Turing machine decide whether a Diophantine
 equation can be solved? This statement was answered negatively by the
 Davis--Putnam--Robinson--Matiyasevich
@@ -611,7 +607,7 @@ problems in other areas, as is the case with the tenth problem of Hilbert. It
 is thus interesting to look at non-deterministic Diophantine machines as tools
 to solve problems in number-theoretic contexts, where the introduction of a
 computational device such as a Turing machine may be unfit. Further, the
-theoretical result stating that all r.e. sets are Diophantine is a
+theoretical result stating that all r.e.\ sets are Diophantine is a
 ground-breaking result on its own. Hence, Diophantine equations are certainly
 useful, if not curious, computational models.
 
