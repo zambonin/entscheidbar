@@ -2,3 +2,5 @@ Program that parses context-free grammars in Chomsky normal form as proposed in
 [1], using the Cocke–Younger–Kasami algorithm.
 
 [1] https://br.spoj.com/problems/ET/
+
+Original assignment: 8e91166e0a88a2675d38b20ab7a3f16388ea83c7
